@@ -1,0 +1,20 @@
+{
+  "name": "ev-shop-gh",
+  "version": "1.0.0",
+  "description": "EV Shop GH - Electric Vehicle Parts & Sourcing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "nodemailer": "^8.0.6",
+    "sql.js": "^1.14.1"
+  }
+}

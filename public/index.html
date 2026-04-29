@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EV Shop GH — Electric Vehicle Parts & Sourcing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700&family=Mona+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Google Translate -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage:'en',layout:google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<style>
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --blue: #0071e3;
+  --blue-bright: #2997ff;
+  --blue-glow: rgba(41, 151, 255, 0.25);
+  --gray-900: #1d1d1f;
+  --gray-700: #424245;
+  --gray-500: #6e6e73;
+  --gray-200: #d2d2d7;
+  --gray-100: #f5f5f7;
+  --surface: #fbfbfd;
+  --radius: 18px;
+  --radius-lg: 28px;
+  --nav-h: 64px;
+  --transition: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--gray-900);
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+img { max-width: 100%; }
+::selection { background: var(--blue-glow); }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 10px; }
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h); z-index: 1000;
+  display: flex; align-items: center;
+  padding: 0 2rem; gap: 1rem;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  transition: background 0.3s;
+}
+.nav.dark {
+  background: rgba(0,0,0,0.85);
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.5rem;
+  cursor: pointer; flex-shrink: 0;
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--black);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.logo-mark::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-bright) 100%);
+  opacity: 0.9;
+}
+.logo-ev {
+  font-size: 0.78rem; font-weight: 800;
+  color: white; letter-spacing: -0.5px;
+  position: relative; z-index: 1;
+}
+.logo-text { font-size: 1rem; font-weight: 700; letter-spacing: -0.3px; }
+.nav.dark .logo-text { color: white; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 0.25rem;
+  flex: 1; justify-content: center;
+}
+.nav-link {
+  padding: 0.4rem 0.85rem; border-radius: 8px;
+  font-size: 0.85rem; font-weight: 500; color: var(--gray-700);
+  background: none; border: none;
+  transition: all 0.2s; cursor: pointer;
+}
+.nav-link:hover { color: var(--black); background: var(--gray-100); }
+.nav.dark .nav-link { color: rgba(255,255,255,0.7); }
+.nav.dark .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+
+.nav-actions { display: flex; align-items: center; gap: 0.5rem; }
+.nav-icon-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: none; border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--gray-700); transition: background 0.2s;
+}
+.nav-icon-btn:hover { background: var(--gray-100); }
+.nav.dark .nav-icon-btn { color: rgba(255,255,255,0.7); }
+.nav.dark .nav-icon-btn:hover { background: rgba(255,255,255,0.1); }
+.cart-badge {
+  position: relative;
+}
+.cart-dot {
+  position: absolute; top: 4px; right: 4px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blue); border: 1.5px solid white;
+  display: none;
+}
+.cart-dot.show { display: block; }
+
+/* ─── TRANSLATE ─── */
+#google_translate_element {
+  position: fixed; bottom: 5rem; left: 1.5rem; z-index: 900;
+  background: white; border-radius: 12px; padding: 0.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  border: 1px solid var(--gray-200);
+  font-size: 0.8rem;
+}
+
+/* ─── PAGES ─── */
+.page { display: none; padding-top: var(--nav-h); min-height: 100vh; }
+.page.active { display: block; animation: fadeUp 0.4s var(--transition); }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--black);
+  min-height: calc(100vh - var(--nav-h));
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(41,151,255,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(41,151,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(41,151,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  animation: gridMove 20s linear infinite;
+}
+@keyframes gridMove { from { transform: translateY(0); } to { transform: translateY(60px); } }
+
+.hero-eyebrow {
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue-bright);
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.6s 0.2s var(--transition) forwards;
+}
+.hero h1 {
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  font-weight: 700; line-height: 1.0;
+  color: white; letter-spacing: -2px;
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.6s 0.35s var(--transition) forwards;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--blue-bright), #a78bfa);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(255,255,255,0.5); font-weight: 300;
+  max-width: 520px; line-height: 1.6; margin-bottom: 3.5rem;
+  opacity: 0; animation: fadeUp 0.6s 0.5s var(--transition) forwards;
+}
+.hero-ctas {
+  display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  opacity: 0; animation: fadeUp 0.6s 0.65s var(--transition) forwards;
+}
+.cta-primary {
+  background: var(--blue); color: white;
+  border: none; padding: 1rem 2.2rem;
+  border-radius: 980px; font-weight: 600; font-size: 1rem;
+  transition: all 0.25s var(--transition);
+  box-shadow: 0 0 0 0 var(--blue-glow);
+}
+.cta-primary:hover {
+  background: #0077ed; transform: scale(1.03);
+  box-shadow: 0 0 0 8px var(--blue-glow);
+}
+.cta-secondary {
+  background: transparent; color: white;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  padding: 1rem 2.2rem; border-radius: 980px;
+  font-weight: 600; font-size: 1rem;
+  transition: all 0.25s var(--transition);
+}
+.cta-secondary:hover {
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.06);
+  transform: scale(1.03);
+}
+.hero-scroll {
+  position: absolute; bottom: 2.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: rgba(255,255,255,0.3); font-size: 0.75rem;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+/* ─── HERO SLIDER ─── */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - var(--nav-h));
+  overflow: hidden;
+}
+.hslide {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem 2rem;
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.75s var(--transition), transform 0.75s var(--transition);
+  pointer-events: none;
+  min-height: calc(100vh - var(--nav-h));
+}
+.hslide.active {
+  opacity: 1; transform: translateX(0);
+  pointer-events: all; position: relative;
+}
+.hslide.exit-left {
+  opacity: 0; transform: translateX(-60px);
+}
+.hslide-bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(41,151,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(41,151,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+}
+.hslide-glow {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+
+/* Two-column layout inside each slide */
+.hslide-visual {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; padding: 2rem;
+  max-width: 480px;
+}
+.hslide-content {
+  flex: 1; max-width: 560px;
+  position: relative; z-index: 2;
+}
+
+/* Big icon circle */
+.slide-icon-wrap {
+  width: 220px; height: 220px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 80px rgba(255,255,255,0.08), 0 30px 80px rgba(0,0,0,0.4);
+  animation: iconFloat 4s ease-in-out infinite;
+  position: relative;
+}
+.slide-icon-wrap::after {
+  content: '';
+  position: absolute; inset: -12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.08);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+@keyframes iconFloat {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(3deg); }
+}
+@keyframes ringPulse {
+  0%,100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.08); opacity: 0.15; }
+}
+
+/* Floating particles around icon */
+.slide-particles { position: absolute; inset: 0; pointer-events: none; }
+.particle {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  animation: particleFloat var(--d) ease-in-out infinite;
+  opacity: 0.6;
+}
+@keyframes particleFloat {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Spec tags under icon */
+.slide-spec-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  justify-content: center; margin-top: 2rem;
+}
+.spec-tag {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.6);
+  font-size: 0.72rem; font-weight: 600;
+  padding: 0.3rem 0.8rem; border-radius: 50px;
+  letter-spacing: 0.5px;
+}
+
+/* Slide text content */
+.hslide-tag {
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--blue-bright); margin-bottom: 1.5rem;
+  opacity: 0; animation: none;
+}
+.hslide.active .hslide-tag {
+  animation: fadeUp 0.5s 0.1s var(--transition) forwards;
+}
+.hslide-title {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 800; line-height: 1.0;
+  color: white; letter-spacing: -2.5px;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+}
+.hslide.active .hslide-title {
+  animation: fadeUp 0.55s 0.25s var(--transition) forwards;
+}
+.hslide-title em { font-style: normal; }
+.hslide-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,0.55);
+  font-weight: 300; line-height: 1.75;
+  max-width: 480px; margin-bottom: 2.5rem;
+  opacity: 0;
+}
+.hslide.active .hslide-sub {
+  animation: fadeUp 0.55s 0.4s var(--transition) forwards;
+}
+.hslide-ctas {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0;
+}
+.hslide.active .hslide-ctas {
+  animation: fadeUp 0.55s 0.55s var(--transition) forwards;
+}
+
+/* Dots */
+.hslider-dots {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 0.5rem; z-index: 10;
+}
+.hdot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  border: none; cursor: pointer;
+  transition: all 0.3s var(--transition);
+  padding: 0;
+}
+.hdot.active {
+  background: white; width: 28px; border-radius: 4px;
+}
+
+/* Arrows */
+.hslider-arrow {
+  position: absolute; top: 50%; z-index: 10;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: white; font-size: 1.8rem; line-height: 1;
+  width: 48px; height: 48px; border-radius: 50%;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(10px);
+}
+.hslider-arrow:hover { background: rgba(255,255,255,0.18); transform: translateY(-50%) scale(1.08); }
+.hslider-prev { left: 1.5rem; }
+.hslider-next { right: 1.5rem; }
+
+/* Progress bar */
+.hslider-progress {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: rgba(255,255,255,0.08); z-index: 10;
+}
+.hslider-progress-bar {
+  height: 100%; background: var(--blue-bright);
+  width: 0%; transition: width 0.1s linear;
+}
+
+@media (max-width: 768px) {
+  .hslide { flex-direction: column; text-align: center; padding: 3rem 1.5rem; }
+  .hslide-visual { max-width: 100%; padding: 1rem; }
+  .slide-icon-wrap { width: 140px; height: 140px; }
+  .slide-icon-wrap span { font-size: 3.2rem !important; }
+  .hslide-content { max-width: 100%; }
+  .hslide-title { font-size: clamp(2.2rem, 9vw, 3.5rem); }
+  .hslide-ctas { justify-content: center; }
+  .hslider-arrow { display: none; }
+  .slide-particles { display: none; }
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  background: var(--black); border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden; padding: 1rem 0;
+}
+.marquee-track {
+  display: flex; gap: 3rem;
+  animation: marquee 25s linear infinite;
+  white-space: nowrap;
+}
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-item {
+  color: rgba(255,255,255,0.3); font-size: 0.8rem;
+  font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.marquee-item span { color: var(--blue-bright); }
+
+/* ─── SECTION ─── */
+.section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+.section-sm { padding: 3rem 2rem; }
+.section-full { padding: 6rem 2rem; }
+
+.eyebrow {
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 1rem;
+}
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700; letter-spacing: -1.5px;
+  line-height: 1.1; margin-bottom: 1rem;
+}
+.section-title em { font-style: normal; color: var(--blue); }
+.section-sub {
+  color: var(--gray-500); font-size: 1.05rem;
+  max-width: 540px; line-height: 1.7;
+}
+.section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; gap: 2rem; }
+.see-all-btn {
+  background: none; border: none;
+  color: var(--blue); font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+  display: flex; align-items: center; gap: 0.3rem;
+  padding: 0.5rem 1rem; border-radius: 8px;
+  transition: background 0.2s;
+}
+.see-all-btn:hover { background: rgba(0,113,227,0.06); }
+
+/* ─── CATEGORIES ─── */
+.categories-strip {
+  background: var(--gray-100); padding: 4rem 2rem;
+}
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem; max-width: 1200px; margin: 0 auto;
+}
+.cat-card {
+  background: white; border-radius: var(--radius);
+  padding: 2rem 1.5rem; text-align: center;
+  border: 1px solid rgba(0,0,0,0.06);
+  cursor: pointer; transition: all 0.3s var(--transition);
+}
+.cat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  border-color: var(--blue);
+}
+.cat-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.cat-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+.cat-desc { font-size: 0.75rem; color: var(--gray-500); line-height: 1.4; }
+
+/* ─── PRODUCT GRID ─── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.product-card {
+  background: white; border-radius: var(--radius-lg);
+  overflow: hidden; border: 1px solid rgba(0,0,0,0.06);
+  cursor: pointer; transition: all 0.35s var(--transition);
+  position: relative;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+  border-color: rgba(0,113,227,0.15);
+}
+.product-img-wrap {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #f5f5f7 0%, #ebebed 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4.5rem; position: relative;
+  overflow: hidden;
+}
+.product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.product-badge {
+  position: absolute; top: 1rem; left: 1rem;
+  background: var(--black); color: white;
+  font-size: 0.68rem; font-weight: 700;
+  padding: 0.3rem 0.7rem; border-radius: 50px;
+  letter-spacing: 0.5px;
+}
+.product-badge.blue { background: var(--blue); }
+.product-badge.sale { background: #ff3b30; }
+.product-info { padding: 1.25rem 1.5rem; }
+.product-cat-tag { font-size: 0.72rem; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem; }
+.product-name { font-weight: 700; font-size: 0.95rem; line-height: 1.3; margin-bottom: 0.7rem; }
+.product-compat { font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.8rem; }
+.product-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
+.p-price { font-size: 1.2rem; font-weight: 800; }
+.p-orig { font-size: 0.85rem; color: var(--gray-500); text-decoration: line-through; }
+.p-save { font-size: 0.75rem; color: #34c759; font-weight: 700; }
+.add-cart-btn {
+  width: 100%; background: var(--black); color: white;
+  border: none; padding: 0.75rem; border-radius: 12px;
+  font-family: inherit; font-weight: 600; font-size: 0.88rem;
+  transition: all 0.2s var(--transition);
+}
+.add-cart-btn:hover { background: var(--blue); transform: scale(1.02); }
+
+/* ─── CATEGORY FILTER BAR ─── */
+.filter-bar {
+  display: flex; gap: 0.5rem; overflow-x: auto;
+  padding: 1.5rem 0; scrollbar-width: none;
+  flex-wrap: wrap;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-chip {
+  flex-shrink: 0; padding: 0.5rem 1.25rem;
+  border-radius: 50px; border: 1.5px solid var(--gray-200);
+  background: white; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; color: var(--gray-700);
+}
+.filter-chip:hover { border-color: var(--black); color: var(--black); }
+.filter-chip.active { background: var(--black); color: white; border-color: var(--black); }
+
+/* ─── PRODUCT DETAIL ─── */
+.detail-wrap { max-width: 1100px; margin: 2rem auto; padding: 0 2rem; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.detail-img {
+  aspect-ratio: 1; background: linear-gradient(135deg, #f5f5f7, #e8e8ed);
+  border-radius: var(--radius-lg); display: flex; align-items: center;
+  justify-content: center; font-size: 10rem;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.detail-img img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); }
+.detail-cat { font-size: 0.75rem; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+.detail-name { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 0.75rem; }
+.detail-sku { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+.detail-price-block { margin-bottom: 1.5rem; }
+.detail-price { font-size: 2rem; font-weight: 800; }
+.detail-orig { font-size: 1rem; color: var(--gray-500); text-decoration: line-through; margin-left: 0.5rem; }
+.detail-save { font-size: 0.85rem; color: #34c759; font-weight: 700; margin-top: 0.2rem; }
+.detail-desc { color: var(--gray-700); line-height: 1.8; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.detail-specs { margin-bottom: 2rem; }
+.spec-row { display: flex; justify-content: space-between; padding: 0.7rem 0; border-bottom: 1px solid var(--gray-100); font-size: 0.88rem; }
+.spec-label { color: var(--gray-500); font-weight: 500; }
+.spec-val { font-weight: 600; }
+.stock-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem; }
+.stock-in { color: #34c759; }
+.stock-out { color: #ff3b30; }
+.qty-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.qty-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid var(--gray-200); background: white;
+  font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: border-color 0.2s;
+}
+.qty-btn:hover { border-color: var(--blue); color: var(--blue); }
+.qty-num { font-size: 1.1rem; font-weight: 700; min-width: 2rem; text-align: center; }
+.add-detail-btn {
+  width: 100%; background: var(--blue); color: white;
+  border: none; padding: 1.1rem; border-radius: var(--radius);
+  font-family: inherit; font-weight: 700; font-size: 1rem;
+  transition: all 0.25s var(--transition);
+  box-shadow: 0 0 0 0 var(--blue-glow);
+}
+.add-detail-btn:hover { background: #0077ed; box-shadow: 0 0 0 8px var(--blue-glow); }
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--blue); font-size: 0.9rem; font-weight: 600;
+  background: none; border: none; cursor: pointer;
+  margin-bottom: 2rem; padding: 0.3rem 0;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* ─── CART ─── */
+.cart-wrap { max-width: 1040px; margin: 2rem auto; padding: 0 2rem; }
+.cart-layout { display: grid; grid-template-columns: 1fr 360px; gap: 2rem; align-items: start; }
+.cart-items-box {
+  background: white; border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200); overflow: hidden;
+}
+.cart-row {
+  display: flex; gap: 1.25rem; padding: 1.5rem;
+  border-bottom: 1px solid var(--gray-100); align-items: center;
+}
+.cart-row:last-child { border-bottom: none; }
+.cart-thumb {
+  width: 90px; height: 90px; flex-shrink: 0;
+  background: var(--gray-100); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; overflow: hidden;
+}
+.cart-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.cart-info { flex: 1; }
+.cart-pname { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.3rem; }
+.cart-sku { font-size: 0.75rem; color: var(--gray-500); margin-bottom: 0.6rem; }
+.cart-pprice { color: var(--blue); font-weight: 800; font-size: 0.95rem; }
+.cart-qty-row { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem; }
+.cqb { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--gray-200); background: white; font-weight: 700; cursor: pointer; font-size: 0.85rem; }
+.cqb:hover { border-color: var(--blue); }
+.cart-del { color: #ff3b30; background: none; border: none; font-size: 0.82rem; font-weight: 600; margin-left: auto; cursor: pointer; }
+.cart-summary-box {
+  background: var(--gray-100); border-radius: var(--radius-lg);
+  padding: 2rem; position: sticky; top: calc(var(--nav-h) + 1rem);
+}
+.cart-summary-box h3 { font-weight: 800; font-size: 1.1rem; margin-bottom: 1.5rem; }
+.sum-row { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.8rem; }
+.sum-row.total { font-weight: 800; font-size: 1.1rem; padding-top: 1rem; margin-top: 0.5rem; border-top: 2px solid rgba(0,0,0,0.1); }
+.checkout-btn {
+  width: 100%; background: var(--blue); color: white;
+  border: none; padding: 1rem; border-radius: 12px;
+  font-family: inherit; font-weight: 700; font-size: 0.95rem;
+  margin-top: 1.25rem; transition: all 0.2s;
+}
+.checkout-btn:hover { background: #0077ed; transform: scale(1.02); }
+.cart-empty-state {
+  text-align: center; padding: 6rem 2rem;
+  grid-column: 1/-1;
+}
+.cart-empty-state .e-icon { font-size: 5rem; margin-bottom: 1.5rem; }
+.cart-empty-state h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.7rem; }
+.cart-empty-state p { color: var(--gray-500); margin-bottom: 2rem; }
+
+/* ─── MODALS ─── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5); z-index: 2000;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.overlay.open { display: flex; }
+.modal {
+  background: white; border-radius: var(--radius-lg);
+  padding: 2.5rem; width: min(520px, 95vw);
+  max-height: 90vh; overflow-y: auto;
+  animation: modalIn 0.3s var(--transition);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.25);
+}
+@keyframes modalIn { from{transform:scale(0.95) translateY(20px);opacity:0} to{transform:none;opacity:1} }
+.modal h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 0.5rem; }
+.modal .modal-sub { color: var(--gray-500); font-size: 0.9rem; margin-bottom: 2rem; }
+.fg { margin-bottom: 1rem; }
+.fg label { display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--gray-700); }
+.fg input, .fg select, .fg textarea {
+  width: 100%; padding: 0.75rem 1rem;
+  border: 1.5px solid var(--gray-200); border-radius: 10px;
+  font-family: inherit; font-size: 0.92rem; outline: none;
+  transition: border-color 0.2s;
+  background: white; color: var(--gray-900);
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--blue); }
+.fg textarea { resize: vertical; min-height: 80px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+.btn-cancel {
+  flex: 1; background: var(--gray-100); border: none;
+  padding: 0.9rem; border-radius: 12px;
+  font-family: inherit; font-weight: 600; font-size: 0.9rem; cursor: pointer;
+}
+.btn-submit {
+  flex: 2; background: var(--blue); color: white;
+  border: none; padding: 0.9rem; border-radius: 12px;
+  font-family: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-submit:hover { background: #0077ed; }
+
+/* ─── AUTH ─── */
+.auth-wrap {
+  min-height: calc(100vh - var(--nav-h));
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gray-100); padding: 2rem;
+}
+.auth-box {
+  background: white; border-radius: var(--radius-lg);
+  padding: 3rem; width: min(440px, 100%);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.auth-tabs { display: flex; background: var(--gray-100); border-radius: 10px; padding: 4px; gap: 4px; margin-bottom: 2rem; }
+.auth-tab {
+  flex: 1; padding: 0.6rem; border: none;
+  background: transparent; border-radius: 8px;
+  font-family: inherit; font-weight: 600; font-size: 0.85rem;
+  cursor: pointer; color: var(--gray-500); transition: all 0.2s;
+}
+.auth-tab.active { background: white; color: var(--black); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+/* ─── BLOG ─── */
+.blog-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.blog-card {
+  background: white; border-radius: var(--radius-lg);
+  border: 1px solid rgba(0,0,0,0.06); overflow: hidden;
+  cursor: pointer; transition: all 0.3s var(--transition);
+}
+.blog-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.1); }
+.blog-card-img {
+  height: 180px; background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; position: relative;
+  background: linear-gradient(135deg, #1d1d1f, #2c2c2e);
+}
+.blog-card-body { padding: 1.5rem; }
+.blog-tag {
+  display: inline-block; background: rgba(0,113,227,0.08);
+  color: var(--blue); font-size: 0.72rem; font-weight: 700;
+  padding: 0.25rem 0.7rem; border-radius: 50px;
+  letter-spacing: 0.5px; margin-bottom: 0.75rem;
+}
+.blog-title { font-weight: 800; font-size: 1rem; line-height: 1.4; margin-bottom: 0.6rem; }
+.blog-excerpt { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 1rem; }
+.blog-meta { font-size: 0.75rem; color: var(--gray-500); display: flex; gap: 0.5rem; }
+
+/* ─── BLOG POST ─── */
+.post-wrap { max-width: 760px; margin: 3rem auto; padding: 0 2rem; }
+.post-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 1.5rem; }
+.post-content { font-size: 1.05rem; line-height: 1.9; color: var(--gray-700); }
+.post-content p { margin-bottom: 1.5rem; }
+
+/* ─── ORDERS ─── */
+.orders-wrap { max-width: 900px; margin: 2rem auto; padding: 0 2rem; }
+.order-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200); margin-bottom: 1rem; overflow: hidden; }
+.order-head { padding: 1.2rem 1.5rem; background: var(--gray-100); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.order-ref { font-weight: 800; font-size: 0.9rem; }
+.order-status { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; }
+.s-pending { background: #fff3cd; color: #856404; }
+.s-processing { background: #cfe2ff; color: #084298; }
+.s-shipped { background: #d1e7dd; color: #0f5132; }
+.s-delivered { background: #d1e7dd; color: #0f5132; }
+.order-body { padding: 1.2rem 1.5rem; }
+.order-item-row { display: flex; align-items: center; gap: 0.8rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); font-size: 0.88rem; }
+.order-item-row:last-child { border-bottom: none; }
+.order-total-row { padding: 1rem 1.5rem; text-align: right; font-weight: 800; color: var(--blue); border-top: 1px solid var(--gray-100); }
+
+/* ─── ADMIN ─── */
+.admin-wrap { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-tile { background: white; border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--gray-200); }
+.stat-label { font-size: 0.8rem; color: var(--gray-500); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+.stat-num { font-size: 2.2rem; font-weight: 800; font-family: 'Manrope', sans-serif; letter-spacing: -1px; }
+.stat-num.blue { color: var(--blue); }
+.admin-tab-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.at { padding: 0.6rem 1.25rem; border-radius: 8px; border: 1.5px solid var(--gray-200); background: white; font-family: inherit; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--gray-700); }
+.at.active { background: var(--black); color: white; border-color: var(--black); }
+.admin-panel { background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200); overflow: hidden; }
+.ap-toolbar { padding: 1rem 1.5rem; border-bottom: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; }
+.btn-sm { background: var(--black); color: white; border: none; padding: 0.5rem 1.1rem; border-radius: 8px; font-family: inherit; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: background 0.2s; }
+.btn-sm:hover { background: var(--blue); }
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--gray-100); padding: 0.8rem 1rem; text-align: left; font-size: 0.8rem; color: var(--gray-500); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+td { padding: 0.9rem 1rem; border-top: 1px solid var(--gray-100); font-size: 0.88rem; vertical-align: middle; }
+.td-acts { display: flex; gap: 0.4rem; }
+.btn-edit, .btn-del { padding: 0.3rem 0.7rem; border-radius: 6px; border: 1.5px solid; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: white; font-family: inherit; }
+.btn-edit { border-color: var(--black); color: var(--black); }
+.btn-edit:hover { background: var(--black); color: white; }
+.btn-del { border-color: #ff3b30; color: #ff3b30; }
+.btn-del:hover { background: #ff3b30; color: white; }
+
+/* ─── QUOTE PAGE ─── */
+.quote-page { background: var(--black); min-height: calc(100vh - var(--nav-h)); display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+.quote-box { background: white; border-radius: var(--radius-lg); padding: 3rem; width: min(640px, 100%); box-shadow: 0 40px 120px rgba(0,0,0,0.4); }
+.quote-box h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+.quote-box p { color: var(--gray-500); margin-bottom: 2rem; font-size: 0.95rem; }
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+  background: var(--gray-900); color: white;
+  padding: 1rem 1.5rem; border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  font-weight: 600; font-size: 0.9rem;
+  transform: translateY(100px) scale(0.9); opacity: 0;
+  transition: all 0.35s var(--transition);
+  max-width: 320px; display: flex; align-items: center; gap: 0.7rem;
+  border-left: 4px solid var(--blue);
+}
+.toast.show { transform: none; opacity: 1; }
+.toast.success { border-left-color: #34c759; }
+.toast.error { border-left-color: #ff3b30; }
+
+/* ─── WHATSAPP ─── */
+.wa-btn {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25d366; color: white;
+  border: none; font-size: 1.6rem;
+  box-shadow: 0 8px 32px rgba(37,211,102,0.5);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.wa-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,0.65); }
+
+/* ─── CHATBOT ─── */
+.chat-toggle {
+  position: fixed; bottom: 6.5rem; right: 2rem; z-index: 900;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--blue); color: white; border: none;
+  font-size: 1.4rem; cursor: pointer;
+  box-shadow: 0 8px 32px var(--blue-glow);
+  transition: transform 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-toggle:hover { transform: scale(1.08); }
+.chat-box {
+  position: fixed; bottom: 10rem; right: 2rem; z-index: 900;
+  width: 340px; height: 460px;
+  background: white; border-radius: 20px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.2);
+  border: 1px solid rgba(0,0,0,0.08);
+  display: none; flex-direction: column; overflow: hidden;
+  animation: chatIn 0.3s var(--transition);
+}
+@keyframes chatIn { from{transform:scale(0.9) translateY(10px);opacity:0} to{transform:none;opacity:1} }
+.chat-box.open { display: flex; }
+.chat-header {
+  background: var(--black); color: white;
+  padding: 1rem 1.25rem; display: flex; align-items: center; gap: 0.8rem;
+}
+.chat-av { width: 36px; height: 36px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.chat-hinfo .chat-name { font-weight: 700; font-size: 0.9rem; }
+.chat-hinfo .chat-status { font-size: 0.72rem; color: #34c759; }
+.chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; background: #f5f5f7; }
+.msg { max-width: 82%; padding: 0.65rem 0.9rem; border-radius: 14px; font-size: 0.85rem; line-height: 1.5; }
+.msg.bot { background: white; color: var(--gray-900); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.msg.user { background: var(--blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-input-row { padding: 0.75rem; display: flex; gap: 0.5rem; background: white; border-top: 1px solid var(--gray-200); }
+.chat-input {
+  flex: 1; padding: 0.6rem 0.9rem; border-radius: 20px;
+  border: 1.5px solid var(--gray-200); font-family: inherit;
+  font-size: 0.85rem; outline: none;
+}
+.chat-input:focus { border-color: var(--blue); }
+.chat-send {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--blue); color: white; border: none;
+  font-size: 1rem; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black); color: rgba(255,255,255,0.6);
+  padding: 4rem 2rem 2rem;
+}
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand .logo-mark-sm {
+  width: 40px; height: 40px; background: var(--blue);
+  border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 0.85rem; font-weight: 800;
+  color: white; margin-bottom: 1rem;
+}
+.footer-brand p { font-size: 0.88rem; line-height: 1.7; max-width: 260px; margin-bottom: 1.5rem; }
+.socials { display: flex; gap: 0.75rem; }
+.social-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: rgba(255,255,255,0.6);
+  transition: all 0.2s; text-decoration: none;
+}
+.social-icon:hover { border-color: var(--blue); color: var(--blue-bright); background: rgba(41,151,255,0.1); }
+.footer-col h4 { color: white; font-weight: 700; margin-bottom: 1.2rem; font-size: 0.9rem; }
+.footer-link { display: block; font-size: 0.85rem; margin-bottom: 0.6rem; color: rgba(255,255,255,0.5); cursor: pointer; transition: color 0.2s; }
+.footer-link:hover { color: white; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; }
+.footer-bottom a { color: rgba(255,255,255,0.4); }
+.footer-bottom a:hover { color: white; }
+
+/* ─── FEATURE STRIPS ─── */
+.feature-strip {
+  background: var(--gray-100); padding: 4rem 2rem;
+}
+.feature-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+.feature-item { text-align: center; }
+.feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.feature-title { font-weight: 800; font-size: 1rem; margin-bottom: 0.4rem; }
+.feature-text { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .cart-layout { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .nav-links { display: none; }
+  .form-row-2 { grid-template-columns: 1fr; }
+  .chat-box { width: calc(100vw - 2rem); right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav dark" id="mainNav">
+  <div class="nav-logo" onclick="navigate('home')">
+    <div class="logo-mark"><span class="logo-ev">EV</span></div>
+    <span class="logo-text">EV Shop</span>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="navigate('shop')">Parts</button>
+    <button class="nav-link" onclick="navigate('quote')">Get a Quote</button>
+    <button class="nav-link" onclick="navigate('blog')">News</button>
+    <button class="nav-link" onclick="navigate('about')">About</button>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-icon-btn" onclick="navigate('search')" title="Search">🔍</button>
+    <button class="nav-icon-btn" id="authNavBtn" onclick="navigate('auth')" title="Account">👤</button>
+    <button class="nav-icon-btn" id="ordersNavBtn" onclick="navigate('orders')" title="Orders" style="display:none">📦</button>
+    <button class="nav-icon-btn" id="adminNavBtn" onclick="navigate('admin')" title="Admin" style="display:none">⚙️</button>
+    <button class="nav-icon-btn cart-badge" onclick="navigate('cart')" title="Cart">
+      🛒<span class="cart-dot" id="cartDot"></span>
+    </button>
+    <button class="nav-icon-btn" id="logoutNavBtn" onclick="doLogout()" title="Logout" style="display:none">↩</button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div id="page-home" class="page active" style="padding-top:0">
+
+  <!-- HERO SLIDER -->
+  <section class="hero-slider" id="heroSlider">
+
+    <!-- SLIDE 1: Brand -->
+    <div class="hslide active" style="background: radial-gradient(ellipse 80% 70% at 60% 50%, #0a1628 0%, #000 60%), linear-gradient(135deg, #000 0%, #0d1f3c 100%);">
+      <div class="hslide-bg-grid"></div>
+      <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(41,151,255,0.22) 0%, transparent 70%);"></div>
+      <div class="hslide-visual">
+        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #0071e3, #2997ff);">
+          <span style="font-size:5rem;">⚡</span>
+        </div>
+        <div class="slide-particles">
+          <span class="particle" style="--x:20%;--y:30%;--d:2.5s;font-size:1.2rem;">🔋</span>
+          <span class="particle" style="--x:75%;--y:20%;--d:3.2s;font-size:1rem;">⚙️</span>
+          <span class="particle" style="--x:85%;--y:65%;--d:2s;font-size:1.1rem;">🔌</span>
+          <span class="particle" style="--x:10%;--y:70%;--d:3.8s;font-size:0.9rem;">❄️</span>
+        </div>
+      </div>
+      <div class="hslide-content">
+        <div class="hslide-tag">⚡ Ghana's #1 EV Store</div>
+        <h1 class="hslide-title">Drive the<br><em>Future.</em><br>Today.</h1>
+        <p class="hslide-sub">Premium electric vehicle parts delivered to you. Or let us source your dream EV from overseas — shipped straight to Ghana.</p>
+        <div class="hslide-ctas">
+          <button class="cta-primary" onclick="navigate('shop')">Shop EV Parts</button>
+          <button class="cta-secondary" onclick="navigate('quote')">Get a Quote →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Battery Systems -->
+    <div class="hslide" style="background: linear-gradient(135deg, #050d1a 0%, #0a1f0a 50%, #000 100%);">
+      <div class="hslide-bg-grid"></div>
+      <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(52,197,89,0.2) 0%, transparent 70%);"></div>
+      <div class="hslide-visual">
+        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #1a7f3c, #34c759);">
+          <span style="font-size:5rem;">🔋</span>
+        </div>
+        <div class="slide-spec-tags">
+          <span class="spec-tag">72V Systems</span>
+          <span class="spec-tag">LiFePO4</span>
+          <span class="spec-tag">2000+ Cycles</span>
+          <span class="spec-tag">Smart BMS</span>
+        </div>
+      </div>
+      <div class="hslide-content">
+        <div class="hslide-tag" style="color:#34c759;">🔋 Battery Systems</div>
+        <h1 class="hslide-title">Power That<br><em style="background:linear-gradient(90deg,#34c759,#00d4aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Lasts.</em></h1>
+        <p class="hslide-sub">LiFePO4 battery packs, smart BMS units and high-voltage modules for every EV application — from motorcycles to full car conversions.</p>
+        <div class="hslide-ctas">
+          <button class="cta-primary" style="background:#34c759;" onclick="filterCat('battery-systems')">Shop Batteries</button>
+          <button class="cta-secondary" onclick="navigate('quote')">Get a Quote →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Charging Equipment -->
+    <div class="hslide" style="background: linear-gradient(135deg, #0d0820 0%, #1a0d35 50%, #000 100%);">
+      <div class="hslide-bg-grid"></div>
+      <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(175,82,222,0.2) 0%, transparent 70%);"></div>
+      <div class="hslide-visual">
+        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">
+          <span style="font-size:5rem;">⚡</span>
+        </div>
+        <div class="slide-spec-tags">
+          <span class="spec-tag">7kW Home</span>
+          <span class="spec-tag">22kW Commercial</span>
+          <span class="spec-tag">Portable</span>
+          <span class="spec-tag">Type 2</span>
+        </div>
+      </div>
+      <div class="hslide-content">
+        <div class="hslide-tag" style="color:#a78bfa;">⚡ Charging Equipment</div>
+        <h1 class="hslide-title">Charge<br><em style="background:linear-gradient(90deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Anywhere.</em></h1>
+        <p class="hslide-sub">Home wall chargers, commercial stations and portable units — all compatible with Ghana's 240V supply. Smart WiFi control included.</p>
+        <div class="hslide-ctas">
+          <button class="cta-primary" style="background:#7c3aed;" onclick="filterCat('charging')">Shop Chargers</button>
+          <button class="cta-secondary" onclick="navigate('quote')">Get a Quote →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Conversion Kits -->
+    <div class="hslide" style="background: linear-gradient(135deg, #1a0a00 0%, #2d1200 50%, #000 100%);">
+      <div class="hslide-bg-grid"></div>
+      <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(249,115,22,0.2) 0%, transparent 70%);"></div>
+      <div class="hslide-visual">
+        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #c2410c, #f97316);">
+          <span style="font-size:5rem;">🔧</span>
+        </div>
+        <div class="slide-spec-tags">
+          <span class="spec-tag">Motorcycles</span>
+          <span class="spec-tag">Keke/Tuk-tuk</span>
+          <span class="spec-tag">Full Kits</span>
+          <span class="spec-tag">Ghana Special</span>
+        </div>
+      </div>
+      <div class="hslide-content">
+        <div class="hslide-tag" style="color:#f97316;">🔧 Conversion Kits</div>
+        <h1 class="hslide-title">Convert<br><em style="background:linear-gradient(90deg,#f97316,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Your Ride.</em></h1>
+        <p class="hslide-sub">Complete kits to convert motorcycles, keke napep and tricycles to electric. Everything included — motor, battery, controller, wiring.</p>
+        <div class="hslide-ctas">
+          <button class="cta-primary" style="background:#f97316;" onclick="filterCat('conversion')">Shop Kits</button>
+          <button class="cta-secondary" onclick="navigate('quote')">Get a Quote →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: EV Sourcing -->
+    <div class="hslide" style="background: linear-gradient(135deg, #000814 0%, #001233 50%, #000 100%);">
+      <div class="hslide-bg-grid"></div>
+      <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(41,151,255,0.25) 0%, transparent 70%);"></div>
+      <div class="hslide-visual">
+        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #0f4c8a, #2997ff);">
+          <span style="font-size:5rem;">🚗</span>
+        </div>
+        <div class="slide-spec-tags">
+          <span class="spec-tag">BYD</span>
+          <span class="spec-tag">Tesla</span>
+          <span class="spec-tag">NIO</span>
+          <span class="spec-tag">Tema Port</span>
+        </div>
+      </div>
+      <div class="hslide-content">
+        <div class="hslide-tag" style="color:#2997ff;">🚗 EV Sourcing Service</div>
+        <h1 class="hslide-title">We Bring<br>the EV<br><em>To You.</em></h1>
+        <p class="hslide-sub">Source your dream electric vehicle from China, Europe or North America. Full customs clearance and delivery to any Ghana port.</p>
+        <div class="hslide-ctas">
+          <button class="cta-primary" onclick="navigate('quote')">Request Your EV</button>
+          <button class="cta-secondary" onclick="navigate('about')">Learn More →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="hslider-dots" id="sliderDots">
+      <button class="hdot active" onclick="goSlide(0)"></button>
+      <button class="hdot" onclick="goSlide(1)"></button>
+      <button class="hdot" onclick="goSlide(2)"></button>
+      <button class="hdot" onclick="goSlide(3)"></button>
+      <button class="hdot" onclick="goSlide(4)"></button>
+    </div>
+    <button class="hslider-arrow hslider-prev" onclick="prevSlide()">‹</button>
+    <button class="hslider-arrow hslider-next" onclick="nextSlide()">›</button>
+
+    <!-- PROGRESS BAR -->
+    <div class="hslider-progress"><div class="hslider-progress-bar" id="sliderProgressBar"></div></div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+      <span class="marquee-item">🔋 Battery Systems</span>
+      <span class="marquee-item"><span>⚡</span> Charging Equipment</span>
+      <span class="marquee-item">⚙️ Motors & Controllers</span>
+      <span class="marquee-item">❄️ Thermal Management</span>
+      <span class="marquee-item">🔧 Conversion Kits</span>
+      <span class="marquee-item">🛡️ Safety Accessories</span>
+      <span class="marquee-item">🌍 Ghana-Ready Parts</span>
+      <span class="marquee-item">🚗 EV Sourcing Service</span>
+      <!-- repeat -->
+      <span class="marquee-item">🔋 Battery Systems</span>
+      <span class="marquee-item"><span>⚡</span> Charging Equipment</span>
+      <span class="marquee-item">⚙️ Motors & Controllers</span>
+      <span class="marquee-item">❄️ Thermal Management</span>
+      <span class="marquee-item">🔧 Conversion Kits</span>
+      <span class="marquee-item">🛡️ Safety Accessories</span>
+      <span class="marquee-item">🌍 Ghana-Ready Parts</span>
+      <span class="marquee-item">🚗 EV Sourcing Service</span>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Featured Products</div>
+        <h2 class="section-title">Best Sellers</h2>
+      </div>
+      <button class="see-all-btn" onclick="navigate('shop')">See all parts →</button>
+    </div>
+    <div class="products-grid" id="featuredGrid"></div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories-strip">
+    <div class="section" style="padding-top:0; padding-bottom:0;">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow">Explore</div>
+          <h2 class="section-title">Shop by <em>Category</em></h2>
+        </div>
+      </div>
+      <div class="cats-grid" id="homeCatsGrid"></div>
+    </div>
+  </div>
+
+  <!-- SOURCING BANNER -->
+  <div style="background:var(--black); padding:6rem 2rem; text-align:center;">
+    <div style="max-width:700px; margin:0 auto;">
+      <div class="eyebrow" style="color:var(--blue-bright)">Vehicle Sourcing Service</div>
+      <h2 class="section-title" style="color:white; margin-bottom:1rem;">We bring the <em>EV to you.</em></h2>
+      <p style="color:rgba(255,255,255,0.55); font-size:1.05rem; line-height:1.7; margin-bottom:2.5rem;">From China, Europe or North America — we source, clear customs, and deliver your electric vehicle to any port in Ghana. BYD, Tesla, NIO, Aion and more.</p>
+      <button class="cta-primary" onclick="navigate('quote')">Request Your Vehicle →</button>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="feature-strip">
+    <div class="feature-inner">
+      <div class="feature-item"><div class="feature-icon">🛡️</div><div class="feature-title">Genuine Parts</div><div class="feature-text">All products verified and sourced from certified EV manufacturers worldwide.</div></div>
+      <div class="feature-item"><div class="feature-icon">🚚</div><div class="feature-title">Nationwide Delivery</div><div class="feature-text">Fast delivery across Accra, Kumasi, Tamale and all major Ghana cities.</div></div>
+      <div class="feature-item"><div class="feature-icon">⚡</div><div class="feature-title">Paystack Secure</div><div class="feature-text">Pay safely in GHS or USD with cards, mobile money and bank transfer.</div></div>
+      <div class="feature-item"><div class="feature-icon">🔧</div><div class="feature-title">Technical Support</div><div class="feature-text">Our EV engineers are available via WhatsApp to help with installation queries.</div></div>
+    </div>
+  </div>
+
+  <!-- BLOG PREVIEW -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Latest</div>
+        <h2 class="section-title">EV <em>News</em></h2>
+      </div>
+      <button class="see-all-btn" onclick="navigate('blog')">All articles →</button>
+    </div>
+    <div class="blog-grid" id="homeBlogGrid"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ SHOP ═══════════════ -->
+<div id="page-shop" class="page">
+  <div class="section">
+    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem; flex-wrap:wrap;">
+      <h1 class="section-title" id="shopTitle" style="margin:0;">EV Parts</h1>
+      <div style="margin-left:auto; display:flex; gap:0.5rem; align-items:center;">
+        <input id="searchBox" type="text" placeholder="Search parts..." style="padding:0.6rem 1rem; border:1.5px solid var(--gray-200); border-radius:10px; font-family:inherit; font-size:0.88rem; outline:none; width:220px;" oninput="liveSearch(this.value)">
+        <select id="sortSel" onchange="loadShop()" style="padding:0.6rem 0.9rem; border:1.5px solid var(--gray-200); border-radius:10px; font-family:inherit; font-size:0.85rem; cursor:pointer; outline:none;">
+          <option value="">Featured</option>
+          <option value="price-asc">Price ↑</option>
+          <option value="price-desc">Price ↓</option>
+          <option value="newest">Newest</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-bar" id="shopFilterBar"></div>
+    <div class="products-grid" id="shopGrid" style="margin-top:1.5rem;"></div>
+    <div id="shopEmpty" style="display:none; text-align:center; padding:4rem; color:var(--gray-500);">
+      <div style="font-size:4rem; margin-bottom:1rem;">🔍</div>
+      <h3 style="font-size:1.3rem; font-weight:700;">No products found</h3>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PRODUCT DETAIL ═══════════════ -->
+<div id="page-product" class="page">
+  <div class="detail-wrap" id="detailContent"></div>
+</div>
+
+<!-- ═══════════════ CART ═══════════════ -->
+<div id="page-cart" class="page">
+  <div class="cart-wrap">
+    <h1 style="font-size:2rem; font-weight:800; letter-spacing:-0.5px; margin-bottom:2rem;">Shopping Cart</h1>
+    <div id="cartContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ AUTH ═══════════════ -->
+<div id="page-auth" class="page" style="padding-top:0;">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div style="margin-bottom:1.5rem;">
+        <div style="width:48px;height:48px;background:var(--blue);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:white;margin-bottom:1rem;">EV</div>
+        <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.3px;">Welcome</h2>
+        <p style="color:var(--gray-500);font-size:0.9rem;margin-top:0.3rem;">Sign in to track orders and manage your account.</p>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="authTab('login')">Sign In</button>
+        <button class="auth-tab" id="tabReg" onclick="authTab('register')">Create Account</button>
+      </div>
+      <div id="loginForm">
+        <div class="fg"><label>Email</label><input type="email" id="liEmail" placeholder="you@example.com"></div>
+        <div class="fg"><label>Password</label><input type="password" id="liPass" placeholder="••••••••"></div>
+        <button class="btn-submit" style="width:100%;margin-top:0.5rem;padding:1rem;" onclick="doLogin()">Sign In →</button>
+        <p style="text-align:center;color:var(--gray-500);font-size:0.78rem;margin-top:1rem;">Admin demo: admin@evshopgh.com / evadmin2024</p>
+      </div>
+      <div id="regForm" style="display:none">
+        <div class="form-row-2">
+          <div class="fg"><label>Full Name</label><input type="text" id="rgName" placeholder="John Mensah"></div>
+          <div class="fg"><label>Phone</label><input type="text" id="rgPhone" placeholder="+233..."></div>
+        </div>
+        <div class="fg"><label>Email</label><input type="email" id="rgEmail" placeholder="you@example.com"></div>
+        <div class="fg"><label>Password</label><input type="password" id="rgPass" placeholder="Min. 8 characters"></div>
+        <button class="btn-submit" style="width:100%;margin-top:0.5rem;padding:1rem;" onclick="doRegister()">Create Account →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ QUOTE ═══════════════ -->
+<div id="page-quote" class="page" style="padding-top:0;">
+  <div class="quote-page">
+    <div class="quote-box">
+      <h1>🚗 Get a Vehicle Quote</h1>
+      <p>Tell us your dream EV and we'll source it from China, Europe or North America with full customs clearance to Ghana.</p>
+      <div class="form-row-2">
+        <div class="fg"><label>Your Name *</label><input type="text" id="qName" placeholder="Kwame Asante"></div>
+        <div class="fg"><label>Phone *</label><input type="text" id="qPhone" placeholder="+233 XX XXX XXXX"></div>
+      </div>
+      <div class="fg"><label>Email Address *</label><input type="email" id="qEmail" placeholder="you@example.com"></div>
+      <div class="form-row-2">
+        <div class="fg"><label>Vehicle Make *</label><input type="text" id="qMake" placeholder="e.g. BYD, Tesla, NIO"></div>
+        <div class="fg"><label>Model</label><input type="text" id="qModel" placeholder="e.g. Seagull, Model 3"></div>
+      </div>
+      <div class="form-row-2">
+        <div class="fg"><label>Year (approx.)</label><input type="text" id="qYear" placeholder="e.g. 2023–2024"></div>
+        <div class="fg"><label>Budget (GHS)</label><input type="number" id="qBudget" placeholder="e.g. 150000"></div>
+      </div>
+      <div class="fg">
+        <label>Destination Port *</label>
+        <select id="qPort">
+          <option value="">Select port...</option>
+          <option>Tema Port, Accra</option>
+          <option>Takoradi Port</option>
+          <option>Kumasi (inland delivery)</option>
+          <option>Other (specify in notes)</option>
+        </select>
+      </div>
+      <div class="fg"><label>Additional Notes</label><textarea id="qNotes" placeholder="Any specific color, trim, or requirements..."></textarea></div>
+      <button class="btn-submit" style="width:100%;padding:1rem;border-radius:12px;font-size:1rem;" onclick="submitQuote()">Submit Request ⚡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ BLOG ═══════════════ -->
+<div id="page-blog" class="page">
+  <div class="section">
+    <div class="eyebrow">EV News & Insights</div>
+    <h1 class="section-title" style="margin-bottom:3rem;">Latest <em>Articles</em></h1>
+    <div class="blog-grid" id="blogGrid"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ POST ═══════════════ -->
+<div id="page-post" class="page">
+  <div class="post-wrap">
+    <button class="back-link" onclick="navigate('blog')">← Back to News</button>
+    <div id="postContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ ORDERS ═══════════════ -->
+<div id="page-orders" class="page">
+  <div class="orders-wrap">
+    <h1 style="font-size:2rem;font-weight:800;margin-bottom:2rem;">My Orders</h1>
+    <div id="ordersContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ ADMIN ═══════════════ -->
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <h1 style="font-size:2rem;font-weight:800;margin-bottom:0.3rem;">Admin Dashboard</h1>
+    <p style="color:var(--gray-500);margin-bottom:2rem;font-size:0.9rem;">EV Shop GH — Store Management</p>
+    <div class="admin-stats" id="adminStats"></div>
+    <div class="admin-tab-bar">
+      <button class="at active" onclick="admTab('products',this)">Products</button>
+      <button class="at" onclick="admTab('orders',this)">Orders</button>
+      <button class="at" onclick="admTab('quotes',this)">Quotes</button>
+    </div>
+    <div class="admin-panel" id="adminPanel"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<div id="page-about" class="page">
+  <div style="max-width:800px; margin:4rem auto; padding:0 2rem;">
+    <div class="eyebrow">About Us</div>
+    <h1 class="section-title">Powering Ghana's <em>EV Revolution</em></h1>
+    <p style="font-size:1.05rem; line-height:1.9; color:var(--gray-700); margin-bottom:1.5rem;">EV Shop GH is Ghana's dedicated electric vehicle parts and sourcing company. We supply genuine EV components — batteries, motors, chargers, conversion kits — to technicians, businesses and individual owners across the country.</p>
+    <p style="font-size:1.05rem; line-height:1.9; color:var(--gray-700); margin-bottom:1.5rem;">We also run a vehicle sourcing service, helping Ghanaians acquire electric cars, motorcycles and commercial vehicles from China, Europe and North America, with full documentation, shipping and customs clearance handled for you.</p>
+    <p style="font-size:1.05rem; line-height:1.9; color:var(--gray-700);">Our mission is simple: make electric mobility accessible and affordable for every Ghanaian.</p>
+    <div style="margin-top:3rem; padding:2rem; background:var(--gray-100); border-radius:var(--radius-lg);">
+      <h3 style="font-weight:800; margin-bottom:0.5rem;">Get in Touch</h3>
+      <p style="color:var(--gray-700); font-size:0.95rem;">📧 evsolutionsgh@outlook.com</p>
+      <p style="color:var(--gray-700); font-size:0.95rem; margin-top:0.3rem;">📱 +233 59 477 5210 (WhatsApp)</p>
+      <p style="color:var(--gray-700); font-size:0.95rem; margin-top:0.3rem;">🌐 evshopgh.com</p>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="overlay" id="checkoutOverlay">
+  <div class="modal">
+    <h2>Checkout</h2>
+    <p class="modal-sub">Complete your order details below. You'll be redirected to Paystack to pay securely.</p>
+    <div class="form-row-2">
+      <div class="fg"><label>Full Name *</label><input type="text" id="ckName" placeholder="John Mensah"></div>
+      <div class="fg"><label>Phone *</label><input type="text" id="ckPhone" placeholder="+233..."></div>
+    </div>
+    <div class="fg"><label>Email Address *</label><input type="email" id="ckEmail" placeholder="you@example.com"></div>
+    <div class="fg"><label>Delivery Address</label><input type="text" id="ckAddr" placeholder="Street / Area"></div>
+    <div class="fg"><label>City</label><input type="text" id="ckCity" placeholder="Accra"></div>
+    <div style="background:rgba(0,113,227,0.06); border-radius:10px; padding:1rem; margin-bottom:1rem; font-size:0.85rem; color:var(--gray-700);">
+      🔒 Payment is processed securely by <strong>Paystack</strong>. Accepts cards, mobile money & bank transfer.
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('checkoutOverlay')">Cancel</button>
+      <button class="btn-submit" onclick="initPayment()">Pay with Paystack ⚡</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT ADMIN MODAL -->
+<div class="overlay" id="productAdminOverlay">
+  <div class="modal">
+    <h2 id="pamTitle">Add Product</h2>
+    <input type="hidden" id="pamId">
+    <div class="fg"><label>Product Name *</label><input type="text" id="pamName"></div>
+    <div class="fg"><label>Description</label><textarea id="pamDesc" style="min-height:70px;"></textarea></div>
+    <div class="form-row-2">
+      <div class="fg"><label>Price (GHS) *</label><input type="number" id="pamPrice" step="0.01"></div>
+      <div class="fg"><label>Original Price (GHS)</label><input type="number" id="pamOrig" step="0.01"></div>
+    </div>
+    <div class="form-row-2">
+      <div class="fg"><label>Stock</label><input type="number" id="pamStock"></div>
+      <div class="fg"><label>Category</label><select id="pamCat"></select></div>
+    </div>
+    <div class="form-row-2">
+      <div class="fg"><label>SKU</label><input type="text" id="pamSku"></div>
+      <div class="fg"><label>Badge (optional)</label><input type="text" id="pamBadge" placeholder="e.g. Best Seller"></div>
+    </div>
+    <div class="fg"><label>Compatibility</label><input type="text" id="pamCompat" placeholder="e.g. 72V Systems, Motorcycles"></div>
+    <div class="fg"><label><input type="checkbox" id="pamFeat"> Featured product</label></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('productAdminOverlay')">Cancel</button>
+      <button class="btn-submit" onclick="saveProd()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WHATSAPP -->
+<a class="wa-btn" href="https://wa.me/233594775210" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<!-- CHATBOT TOGGLE -->
+<button class="chat-toggle" onclick="toggleChat()" id="chatToggle" title="AI Assistant">⚡</button>
+
+<!-- CHATBOT -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">
+    <div class="chat-av">⚡</div>
+    <div class="chat-hinfo">
+      <div class="chat-name">EV Assistant</div>
+      <div class="chat-status">● Online</div>
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot">Hi! 👋 I'm your EV Assistant. Ask me anything about electric vehicles, our parts, or how to source an EV to Ghana!</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" placeholder="Ask about EVs..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- GOOGLE TRANSLATE -->
+<div id="google_translate_element"></div>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-mark-sm">EV</div>
+        <p>Ghana's dedicated electric vehicle parts store and EV sourcing service. Bringing the future of mobility to every Ghanaian.</p>
+        <div class="socials">
+          <a class="social-icon" href="https://instagram.com/td_kyeremanteng" target="_blank" title="Instagram">📷</a>
+          <a class="social-icon" href="https://x.com/td_kyeremanteng" target="_blank" title="X / Twitter">𝕏</a>
+          <a class="social-icon" href="https://youtube.com/@sakentstudio" target="_blank" title="YouTube">▶</a>
+          <a class="social-icon" href="https://wa.me/233594775210" target="_blank" title="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <span class="footer-link" onclick="navigate('shop')">All Parts</span>
+        <span class="footer-link" onclick="filterCat('battery-systems')">Battery Systems</span>
+        <span class="footer-link" onclick="filterCat('charging')">Chargers</span>
+        <span class="footer-link" onclick="filterCat('conversion')">Conversion Kits</span>
+        <span class="footer-link" onclick="filterCat('motors')">Motors</span>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <span class="footer-link" onclick="navigate('quote')">Get a Vehicle Quote</span>
+        <span class="footer-link" onclick="navigate('blog')">EV News</span>
+        <span class="footer-link" onclick="navigate('about')">About Us</span>
+        <span class="footer-link" onclick="navigate('auth')">My Account</span>
+        <span class="footer-link" onclick="navigate('orders')">Track Order</span>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <span class="footer-link">📧 evsolutionsgh@outlook.com</span>
+        <span class="footer-link">📱 +233 59 477 5210</span>
+        <span class="footer-link">🌐 evshopgh.com</span>
+        <span class="footer-link">📍 Accra, Ghana</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 <strong style="color:white;">EV Shop GH</strong>. All rights reserved.</span>
+      <span>Built with ⚡ in Ghana</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+let user = null;
+let categories = [];
+let activeCat = null;
+let currency = { symbol: 'GHS', rate: 1, code: 'GHS' };
+
+/* ══════════════════════════════════════════
+   NAV SCROLL EFFECT
+══════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  const isHome = document.getElementById('page-home').classList.contains('active');
+  if (isHome && window.scrollY < 80) {
+    nav.classList.add('dark');
+  } else {
+    nav.classList.remove('dark');
+    nav.style.background = 'rgba(255,255,255,0.92)';
+  }
+});
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════ */
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(`page-${page}`)?.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const nav = document.getElementById('mainNav');
+  if (page === 'home') {
+    nav.classList.add('dark');
+    nav.style.background = '';
+    loadHome();
+  } else {
+    nav.classList.remove('dark');
+    nav.style.background = 'rgba(255,255,255,0.92)';
+  }
+  if (page === 'shop') loadShop();
+  if (page === 'cart') loadCart();
+  if (page === 'orders') loadOrders();
+  if (page === 'admin') loadAdmin();
+  if (page === 'blog') loadBlog();
+}
+
+/* ══════════════════════════════════════════
+   API
+══════════════════════════════════════════ */
+async function api(path, opts = {}) {
+  const res = await fetch('/api' + path, { headers: { 'Content-Type': 'application/json' }, ...opts });
+  return res.json();
+}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+function toast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `toast show ${type}`;
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ══════════════════════════════════════════
+   CURRENCY
+══════════════════════════════════════════ */
+async function loadCurrency() {
+  try {
+    const data = await api('/currency/rates');
+    currency = { symbol: data.symbol, rate: data.rate, code: data.currency };
+  } catch (_) {}
+}
+
+function fmt(ghsPrice) {
+  const val = (ghsPrice * currency.rate).toFixed(2);
+  return `${currency.symbol} ${parseFloat(val).toLocaleString()}`;
+}
+
+/* ══════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════ */
+async function checkAuth() {
+  const d = await api('/auth/me');
+  user = d.user;
+  updateNavAuth();
+}
+
+function updateNavAuth() {
+  document.getElementById('authNavBtn').style.display = user ? 'none' : 'flex';
+  document.getElementById('logoutNavBtn').style.display = user ? 'flex' : 'none';
+  document.getElementById('ordersNavBtn').style.display = user ? 'flex' : 'none';
+  document.getElementById('adminNavBtn').style.display = (user?.role === 'admin') ? 'flex' : 'none';
+}
+
+async function doLogin() {
+  const d = await api('/auth/login', { method: 'POST', body: JSON.stringify({ email: document.getElementById('liEmail').value, password: document.getElementById('liPass').value }) });
+  if (d.error) return toast(d.error, 'error');
+  user = d.user; updateNavAuth();
+  toast(`Welcome back, ${d.user.name.split(' ')[0]}! ⚡`, 'success');
+  navigate('home');
+}
+
+async function doRegister() {
+  const d = await api('/auth/register', { method: 'POST', body: JSON.stringify({ name: document.getElementById('rgName').value, email: document.getElementById('rgEmail').value, password: document.getElementById('rgPass').value, phone: document.getElementById('rgPhone').value }) });
+  if (d.error) return toast(d.error, 'error');
+  user = d.user; updateNavAuth();
+  toast('Account created! Welcome to EV Shop 🎉', 'success');
+  navigate('home');
+}
+
+async function doLogout() {
+  await api('/auth/logout', { method: 'POST' });
+  user = null; updateNavAuth();
+  toast('Logged out'); navigate('home');
+}
+
+function authTab(t) {
+  document.getElementById('loginForm').style.display = t === 'login' ? 'block' : 'none';
+  document.getElementById('regForm').style.display = t === 'register' ? 'block' : 'none';
+  document.getElementById('tabLogin').className = 'auth-tab' + (t === 'login' ? ' active' : '');
+  document.getElementById('tabReg').className = 'auth-tab' + (t === 'register' ? ' active' : '');
+}
+
+/* ══════════════════════════════════════════
+   PRODUCT HELPERS
+══════════════════════════════════════════ */
+const catEmoji = s => ({ 'battery-systems': '🔋', 'charging': '⚡', 'motors': '⚙️', 'cooling': '❄️', 'accessories': '🛡️', 'conversion': '🔧' }[s] || '🔌');
+
+function productCard(p) {
+  const save = p.original_price_ghs && p.original_price_ghs > p.price_ghs
+    ? Math.round((1 - p.price_ghs / p.original_price_ghs) * 100) : 0;
+  return `
+  <div class="product-card" onclick="viewProduct(${p.id})">
+    <div class="product-img-wrap">
+      ${p.badge ? `<span class="product-badge blue">${p.badge}</span>` : ''}
+      ${save > 0 ? `<span class="product-badge sale" style="left:auto;right:1rem;">−${save}%</span>` : ''}
+      <span>${catEmoji(p.cat_slug)}</span>
+    </div>
+    <div class="product-info">
+      <div class="product-cat-tag">${p.cat_name || 'EV Parts'}</div>
+      <div class="product-name">${p.name}</div>
+      ${p.compatibility ? `<div class="product-compat">Fits: ${p.compatibility}</div>` : ''}
+      <div class="product-price-row">
+        <span class="p-price">${fmt(p.price_ghs)}</span>
+        ${p.original_price_ghs && p.original_price_ghs > p.price_ghs ? `<span class="p-orig">${fmt(p.original_price_ghs)}</span>` : ''}
+        ${save > 0 ? `<span class="p-save">Save ${save}%</span>` : ''}
+      </div>
+      <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">Add to Cart</button>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════
+   HOME
+══════════════════════════════════════════ */
+async function loadHome() {
+  const [featData, catsData, blogData] = await Promise.all([
+    api('/products?featured=1'),
+    api('/products/categories'),
+    api('/blog')
+  ]);
+  categories = catsData.categories;
+
+  document.getElementById('featuredGrid').innerHTML = featData.products.map(productCard).join('');
+
+  document.getElementById('homeCatsGrid').innerHTML = catsData.categories.map(c => `
+    <div class="cat-card" onclick="filterCat('${c.slug}')">
+      <div class="cat-icon">${c.icon}</div>
+      <div class="cat-name">${c.name}</div>
+      <div class="cat-desc">${c.description}</div>
+    </div>`).join('');
+
+  document.getElementById('homeBlogGrid').innerHTML = blogData.posts.slice(0, 3).map(blogCard).join('');
+}
+
+/* ══════════════════════════════════════════
+   SHOP
+══════════════════════════════════════════ */
+async function loadShop() {
+  if (!categories.length) {
+    const d = await api('/products/categories');
+    categories = d.categories;
+  }
+  const bar = document.getElementById('shopFilterBar');
+  bar.innerHTML = `<div class="filter-chip ${!activeCat ? 'active' : ''}" onclick="filterCat(null)">All Parts</div>`
+    + categories.map(c => `<div class="filter-chip ${activeCat===c.slug?'active':''}" onclick="filterCat('${c.slug}')">${c.icon} ${c.name}</div>`).join('');
+
+  let q = '/products?';
+  if (activeCat) q += `category=${activeCat}&`;
+  const search = document.getElementById('searchBox')?.value;
+  if (search) q += `search=${encodeURIComponent(search)}&`;
+  const sort = document.getElementById('sortSel')?.value;
+  if (sort) q += `sort=${sort}&`;
+
+  const data = await api(q);
+  const grid = document.getElementById('shopGrid');
+  const empty = document.getElementById('shopEmpty');
+  if (!data.products.length) { grid.innerHTML = ''; empty.style.display = 'block'; }
+  else { empty.style.display = 'none'; grid.innerHTML = data.products.map(productCard).join(''); }
+
+  if (activeCat) {
+    const c = categories.find(x => x.slug === activeCat);
+    document.getElementById('shopTitle').textContent = c ? `${c.icon} ${c.name}` : 'EV Parts';
+  } else {
+    document.getElementById('shopTitle').textContent = 'EV Parts';
+  }
+}
+
+function filterCat(slug) {
+  activeCat = slug;
+  navigate('shop');
+}
+
+let searchTimer;
+function liveSearch(v) {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => loadShop(), 400);
+}
+
+/* ══════════════════════════════════════════
+   PRODUCT DETAIL
+══════════════════════════════════════════ */
+async function viewProduct(id) {
+  navigate('product');
+  const { product: p } = await api(`/products/${id}`);
+  const save = p.original_price_ghs && p.original_price_ghs > p.price_ghs
+    ? Math.round((1 - p.price_ghs / p.original_price_ghs) * 100) : 0;
+  document.getElementById('detailContent').innerHTML = `
+    <button class="back-link" onclick="navigate('shop')">← Back to Parts</button>
+    <div class="detail-grid">
+      <div class="detail-img"><span>${catEmoji(p.cat_slug)}</span></div>
+      <div>
+        <div class="detail-cat">${p.cat_icon || '⚡'} ${p.cat_name}</div>
+        <h1 class="detail-name">${p.name}</h1>
+        <div class="detail-sku">SKU: ${p.sku || 'N/A'}</div>
+        <div class="detail-price-block">
+          <span class="detail-price">${fmt(p.price_ghs)}</span>
+          ${p.original_price_ghs && p.original_price_ghs > p.price_ghs ? `<span class="detail-orig">${fmt(p.original_price_ghs)}</span>` : ''}
+          ${save > 0 ? `<div class="detail-save">You save ${save}% · ${fmt(p.original_price_ghs - p.price_ghs)}</div>` : ''}
+        </div>
+        <p class="detail-desc">${p.description || ''}</p>
+        <div class="detail-specs">
+          ${p.compatibility ? `<div class="spec-row"><span class="spec-label">Compatibility</span><span class="spec-val">${p.compatibility}</span></div>` : ''}
+          ${p.weight ? `<div class="spec-row"><span class="spec-label">Weight</span><span class="spec-val">${p.weight}</span></div>` : ''}
+          <div class="spec-row"><span class="spec-label">Stock</span><span class="spec-val">${p.stock > 0 ? `${p.stock} units` : 'Out of stock'}</span></div>
+        </div>
+        <div class="stock-badge ${p.stock > 0 ? 'stock-in' : 'stock-out'}">
+          ${p.stock > 0 ? '✓ In Stock' : '✗ Out of Stock'}
+        </div>
+        ${p.stock > 0 ? `
+        <div class="qty-row">
+          <button class="qty-btn" onclick="chQty(-1)">−</button>
+          <span class="qty-num" id="detailQty">1</span>
+          <button class="qty-btn" onclick="chQty(1)">+</button>
+          <span style="color:var(--gray-500);font-size:0.85rem;">units</span>
+        </div>
+        <button class="add-detail-btn" onclick="addToCartQty(${p.id})">Add to Cart ⚡</button>
+        ` : `<button class="add-detail-btn" disabled style="opacity:0.4;cursor:not-allowed;">Out of Stock</button>`}
+      </div>
+    </div>`;
+}
+
+function chQty(d) {
+  const el = document.getElementById('detailQty');
+  let q = parseInt(el.textContent) + d;
+  el.textContent = Math.max(1, Math.min(q, 99));
+}
+function addToCartQty(id) {
+  const q = parseInt(document.getElementById('detailQty')?.textContent || 1);
+  addToCart(id, q);
+}
+
+/* ══════════════════════════════════════════
+   CART
+══════════════════════════════════════════ */
+async function addToCart(productId, quantity = 1) {
+  const d = await api('/cart/add', { method: 'POST', body: JSON.stringify({ productId, quantity }) });
+  if (d.error) return toast(d.error, 'error');
+  document.getElementById('cartDot').classList.add('show');
+  toast('Added to cart ⚡', 'success');
+}
+
+async function loadCart() {
+  const d = await api('/cart');
+  const el = document.getElementById('cartContent');
+  if (!d.cart.length) {
+    el.innerHTML = `<div class="cart-empty-state"><div class="e-icon">🔋</div><h2>Your cart is empty</h2><p>Browse our EV parts and add something.</p><button class="cta-primary" onclick="navigate('shop')">Shop Parts →</button></div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div class="cart-layout">
+      <div class="cart-items-box">
+        ${d.cart.map(i => `
+        <div class="cart-row">
+          <div class="cart-thumb">${catEmoji(i.product.cat_slug)}</div>
+          <div class="cart-info">
+            <div class="cart-pname">${i.product.name}</div>
+            <div class="cart-sku">${i.product.sku || ''}</div>
+            <div class="cart-pprice">${fmt(i.product.price_ghs * i.quantity)}</div>
+            <div class="cart-qty-row">
+              <button class="cqb" onclick="updCart(${i.productId},${i.quantity-1})">−</button>
+              <span>${i.quantity}</span>
+              <button class="cqb" onclick="updCart(${i.productId},${i.quantity+1})">+</button>
+              <span style="font-size:0.75rem;color:var(--gray-500)">× ${fmt(i.product.price_ghs)}</span>
+            </div>
+          </div>
+          <button class="cart-del" onclick="delCart(${i.productId})">Remove</button>
+        </div>`).join('')}
+      </div>
+      <div class="cart-summary-box">
+        <h3>Order Summary</h3>
+        <div class="sum-row"><span>Subtotal</span><span>${fmt(d.total)}</span></div>
+        <div class="sum-row"><span>Shipping</span><span style="color:#34c759">Free</span></div>
+        <div class="sum-row total"><span>Total</span><span>${fmt(d.total)}</span></div>
+        <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout →</button>
+        <button onclick="navigate('shop')" style="width:100%;margin-top:0.5rem;background:none;border:none;color:var(--gray-500);cursor:pointer;font-family:inherit;font-size:0.82rem;">← Continue Shopping</button>
+      </div>
+    </div>`;
+}
+
+async function updCart(id, qty) { await api('/cart/update', { method: 'PUT', body: JSON.stringify({ productId: id, quantity: qty }) }); loadCart(); updateCartDot(); }
+async function delCart(id) { await api(`/cart/remove/${id}`, { method: 'DELETE' }); loadCart(); updateCartDot(); toast('Removed from cart'); }
+async function updateCartDot() {
+  const d = await api('/cart');
+  document.getElementById('cartDot').classList.toggle('show', d.count > 0);
+}
+
+function openCheckout() {
+  if (user) {
+    document.getElementById('ckEmail').value = user.email || '';
+    document.getElementById('ckName').value = user.name || '';
+  }
+  openModal('checkoutOverlay');
+}
+
+async function initPayment() {
+  const body = {
+    name: document.getElementById('ckName').value,
+    email: document.getElementById('ckEmail').value,
+    phone: document.getElementById('ckPhone').value,
+    address: document.getElementById('ckAddr').value,
+    city: document.getElementById('ckCity').value
+  };
+  if (!body.name || !body.email) return toast('Name and email required', 'error');
+  const d = await api('/orders/initialize', { method: 'POST', body: JSON.stringify(body) });
+  if (d.error) return toast(d.error, 'error');
+  if (d.authorization_url) window.location.href = d.authorization_url;
+  else toast('Payment initialized — Ref: ' + d.reference, 'success');
+}
+
+/* ══════════════════════════════════════════
+   QUOTE
+══════════════════════════════════════════ */
+async function submitQuote() {
+  const body = {
+    name: document.getElementById('qName').value,
+    email: document.getElementById('qEmail').value,
+    phone: document.getElementById('qPhone').value,
+    make: document.getElementById('qMake').value,
+    model: document.getElementById('qModel').value,
+    year: document.getElementById('qYear').value,
+    budget_ghs: document.getElementById('qBudget').value,
+    destination_port: document.getElementById('qPort').value,
+    notes: document.getElementById('qNotes').value
+  };
+  if (!body.name || !body.email || !body.make) return toast('Name, email and vehicle make required', 'error');
+  const d = await api('/quotes', { method: 'POST', body: JSON.stringify(body) });
+  if (d.error) return toast(d.error, 'error');
+  toast('Quote request submitted! We\'ll contact you within 24hrs ⚡', 'success');
+  ['qName','qEmail','qPhone','qMake','qModel','qYear','qBudget','qNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('qPort').value = '';
+}
+
+/* ══════════════════════════════════════════
+   BLOG
+══════════════════════════════════════════ */
+function blogCard(p) {
+  const icons = { Policy: '📋', Sourcing: '🚗', Maintenance: '🔧', News: '📰' };
+  return `
+  <div class="blog-card" onclick="viewPost('${p.slug}')">
+    <div class="blog-card-img" style="font-size:4rem;">${icons[p.category] || '⚡'}</div>
+    <div class="blog-card-body">
+      <span class="blog-tag">${p.category}</span>
+      <div class="blog-title">${p.title}</div>
+      <div class="blog-excerpt">${p.excerpt}</div>
+      <div class="blog-meta"><span>By ${p.author}</span><span>·</span><span>${new Date(p.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span></div>
+    </div>
+  </div>`;
+}
+
+async function loadBlog() {
+  const d = await api('/blog');
+  document.getElementById('blogGrid').innerHTML = d.posts.map(blogCard).join('');
+}
+
+async function viewPost(slug) {
+  navigate('post');
+  const { post } = await api(`/blog/${slug}`);
+  document.getElementById('postContent').innerHTML = `
+    <span class="blog-tag" style="margin-bottom:1.5rem;display:inline-block;">${post.category}</span>
+    <h1 class="post-title">${post.title}</h1>
+    <div style="color:var(--gray-500);font-size:0.85rem;margin-bottom:2rem;display:flex;gap:0.5rem;">
+      <span>By ${post.author}</span><span>·</span>
+      <span>${new Date(post.created_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</span>
+    </div>
+    <div class="post-content">${(post.content||'').split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('')}</div>`;
+}
+
+/* ══════════════════════════════════════════
+   ORDERS
+══════════════════════════════════════════ */
+async function loadOrders() {
+  if (!user) {
+    document.getElementById('ordersContent').innerHTML = `<div style="text-align:center;padding:5rem;"><h3>Please <button onclick="navigate('auth')" style="color:var(--blue);background:none;border:none;cursor:pointer;font-weight:700;font-size:1rem;">sign in</button> to view orders.</h3></div>`;
+    return;
+  }
+  const d = await api('/orders/my');
+  if (!d.orders.length) {
+    document.getElementById('ordersContent').innerHTML = `<div style="text-align:center;padding:5rem;color:var(--gray-500);"><div style="font-size:4rem;margin-bottom:1rem;">📦</div><h3>No orders yet</h3></div>`;
+    return;
+  }
+  document.getElementById('ordersContent').innerHTML = d.orders.map(o => `
+    <div class="order-card">
+      <div class="order-head">
+        <div>
+          <div class="order-ref">Order ${o.order_ref}</div>
+          <div style="font-size:0.8rem;color:var(--gray-500)">${new Date(o.created_at).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
+          <span class="order-status s-${o.status}">${o.status}</span>
+          <span style="font-size:0.8rem;color:var(--gray-500);font-weight:600;">${o.payment_status === 'paid' ? '✓ Paid' : '⏳ Pending payment'}</span>
+        </div>
+      </div>
+      <div class="order-body">
+        ${(o.items||[]).map(i => `<div class="order-item-row"><div style="width:40px;height:40px;background:var(--gray-100);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">📦</div><div style="flex:1"><strong>${i.name}</strong><br><span style="color:var(--gray-500);font-size:0.78rem;">${i.sku} · Qty ${i.quantity}</span></div><div style="font-weight:700">${fmt(i.price_ghs * i.quantity)}</div></div>`).join('')}
+      </div>
+      <div class="order-total-row">Total: ${fmt(o.total_ghs)}</div>
+    </div>`).join('');
+}
+
+/* ══════════════════════════════════════════
+   ADMIN
+══════════════════════════════════════════ */
+async function loadAdmin() {
+  if (user?.role !== 'admin') { toast('Admin only', 'error'); navigate('home'); return; }
+  const d = await api('/admin/stats');
+  document.getElementById('adminStats').innerHTML = `
+    <div class="stat-tile"><div class="stat-label">Orders</div><div class="stat-num">${d.orders}</div></div>
+    <div class="stat-tile"><div class="stat-label">Revenue</div><div class="stat-num blue">GHS ${parseFloat(d.revenue||0).toLocaleString()}</div></div>
+    <div class="stat-tile"><div class="stat-label">Products</div><div class="stat-num">${d.products}</div></div>
+    <div class="stat-tile"><div class="stat-label">Users</div><div class="stat-num">${d.users}</div></div>
+    <div class="stat-tile"><div class="stat-label">New Quotes</div><div class="stat-num blue">${d.quotes}</div></div>`;
+  admTab('products', document.querySelector('.at'));
+}
+
+async function admTab(tab, el) {
+  document.querySelectorAll('.at').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  if (tab === 'products') {
+    const d = await api('/admin/products');
+    document.getElementById('adminPanel').innerHTML = `
+      <div class="ap-toolbar"><strong>${d.products.length} Products</strong><button class="btn-sm" onclick="openPAM()">+ Add Product</button></div>
+      <div style="overflow-x:auto;"><table>
+        <thead><tr><th>Name</th><th>SKU</th><th>Category</th><th>Price (GHS)</th><th>Stock</th><th>Actions</th></tr></thead>
+        <tbody>${d.products.map(p => `<tr>
+          <td><strong>${p.name}</strong></td><td style="color:var(--gray-500)">${p.sku||''}</td>
+          <td>${p.cat_name||'—'}</td><td>GHS ${parseFloat(p.price_ghs).toLocaleString()}</td>
+          <td>${p.stock}</td>
+          <td class="td-acts">
+            <button class="btn-edit" onclick="editPAM(${JSON.stringify(p).split('"').join('&quot;')})">Edit</button>
+            <button class="btn-del" onclick="delProd(${p.id})">Delete</button>
+          </td></tr>`).join('')}
+        </tbody>
+      </table></div>`;
+  } else if (tab === 'orders') {
+    const d = await api('/admin/orders');
+    document.getElementById('adminPanel').innerHTML = `
+      <div class="ap-toolbar"><strong>${d.orders.length} Orders</strong></div>
+      <div style="overflow-x:auto;"><table>
+        <thead><tr><th>Ref</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th><th>Update</th></tr></thead>
+        <tbody>${d.orders.map(o => `<tr>
+          <td><strong>${o.order_ref}</strong></td>
+          <td>${o.uname||o.email||'Guest'}</td>
+          <td>GHS ${parseFloat(o.total_ghs).toLocaleString()}</td>
+          <td>${o.payment_status==='paid' ? '<span style="color:#34c759;font-weight:700;">✓ Paid</span>' : '<span style="color:#ff9500;">Pending</span>'}</td>
+          <td><span class="order-status s-${o.status}">${o.status}</span></td>
+          <td><select onchange="updOrderStatus(${o.id},this.value)" style="padding:0.3rem;border-radius:6px;border:1.5px solid var(--gray-200);font-family:inherit;font-size:0.82rem;">
+            ${['pending','processing','shipped','delivered'].map(s=>`<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
+          </select></td></tr>`).join('')}
+        </tbody>
+      </table></div>`;
+  } else if (tab === 'quotes') {
+    const d = await api('/admin/quotes');
+    document.getElementById('adminPanel').innerHTML = `
+      <div class="ap-toolbar"><strong>${d.quotes.length} Quote Requests</strong></div>
+      <div style="overflow-x:auto;"><table>
+        <thead><tr><th>Name</th><th>Email</th><th>Vehicle</th><th>Budget</th><th>Port</th><th>Status</th></tr></thead>
+        <tbody>${d.quotes.map(q => `<tr>
+          <td><strong>${q.name}</strong><br><span style="font-size:0.78rem;color:var(--gray-500)">${q.phone}</span></td>
+          <td>${q.email}</td>
+          <td>${q.make} ${q.model} ${q.year}</td>
+          <td>${q.budget_ghs ? 'GHS ' + parseFloat(q.budget_ghs).toLocaleString() : '—'}</td>
+          <td>${q.destination_port||'—'}</td>
+          <td><select onchange="updQuoteStatus(${q.id},this.value)" style="padding:0.3rem;border-radius:6px;border:1.5px solid var(--gray-200);font-family:inherit;font-size:0.82rem;">
+            ${['new','reviewing','contacted','closed'].map(s=>`<option value="${s}" ${q.status===s?'selected':''}>${s}</option>`).join('')}
+          </select></td></tr>`).join('')}
+        </tbody>
+      </table></div>`;
+  }
+}
+
+async function updOrderStatus(id, s) { await api(`/admin/orders/${id}/status`, { method: 'PUT', body: JSON.stringify({ status: s }) }); toast('Status updated', 'success'); }
+async function updQuoteStatus(id, s) { await api(`/admin/quotes/${id}/status`, { method: 'PUT', body: JSON.stringify({ status: s }) }); toast('Quote updated', 'success'); }
+
+let pamEditing = null;
+function openPAM(reset = true) {
+  if (reset) { pamEditing = null; document.getElementById('pamTitle').textContent = 'Add Product'; ['pamId','pamName','pamDesc','pamPrice','pamOrig','pamStock','pamSku','pamBadge','pamCompat'].forEach(i => document.getElementById(i).value = ''); document.getElementById('pamFeat').checked = false; }
+  const sel = document.getElementById('pamCat');
+  sel.innerHTML = categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  openModal('productAdminOverlay');
+}
+function editPAM(p) {
+  pamEditing = p.id;
+  document.getElementById('pamTitle').textContent = 'Edit Product';
+  document.getElementById('pamName').value = p.name || '';
+  document.getElementById('pamDesc').value = p.description || '';
+  document.getElementById('pamPrice').value = p.price_ghs || '';
+  document.getElementById('pamOrig').value = p.original_price_ghs || '';
+  document.getElementById('pamStock').value = p.stock || '';
+  document.getElementById('pamSku').value = p.sku || '';
+  document.getElementById('pamBadge').value = p.badge || '';
+  document.getElementById('pamCompat').value = p.compatibility || '';
+  document.getElementById('pamFeat').checked = !!p.featured;
+  openPAM(false);
+  setTimeout(() => document.getElementById('pamCat').value = p.category_id, 100);
+}
+async function saveProd() {
+  const body = { name: document.getElementById('pamName').value, description: document.getElementById('pamDesc').value, price_ghs: document.getElementById('pamPrice').value, original_price_ghs: document.getElementById('pamOrig').value, stock: document.getElementById('pamStock').value, category_id: document.getElementById('pamCat').value, sku: document.getElementById('pamSku').value, badge: document.getElementById('pamBadge').value, compatibility: document.getElementById('pamCompat').value, featured: document.getElementById('pamFeat').checked };
+  if (!body.name || !body.price_ghs) return toast('Name and price required', 'error');
+  const endpoint = pamEditing ? `/admin/products/${pamEditing}` : '/admin/products';
+  const d = await api(endpoint, { method: pamEditing ? 'PUT' : 'POST', body: JSON.stringify(body) });
+  if (d.error) return toast(d.error, 'error');
+  closeModal('productAdminOverlay');
+  toast(pamEditing ? 'Product updated ✓' : 'Product added ✓', 'success');
+  admTab('products', document.querySelector('.at.active'));
+}
+async function delProd(id) {
+  if (!confirm('Delete this product?')) return;
+  await api(`/admin/products/${id}`, { method: 'DELETE' });
+  toast('Product deleted'); admTab('products', document.querySelector('.at.active'));
+}
+
+/* ══════════════════════════════════════════
+   MODAL HELPERS
+══════════════════════════════════════════ */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+
+/* ══════════════════════════════════════════
+   CHATBOT
+══════════════════════════════════════════ */
+let chatOpen = false;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatBox').classList.toggle('open', chatOpen);
+  document.getElementById('chatToggle').textContent = chatOpen ? '✕' : '⚡';
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  addMsg(msg, 'user');
+  addMsg('Thinking...', 'bot', true);
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `You are EV Assistant for EV Shop GH (evshopgh.com), Ghana's premier electric vehicle parts and sourcing store. You answer questions about EV parts (batteries, motors, chargers, conversion kits), EV maintenance in Ghana's climate, how to source EVs from overseas, pricing in GHS, and general EV knowledge. Be helpful, concise and friendly. If asked about specific product availability or prices, direct users to browse the website or contact via WhatsApp: +233 59 477 5210. Email: evsolutionsgh@outlook.com`,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || "I'm having trouble responding right now. Please try again or contact us on WhatsApp.";
+    removeLastBot();
+    addMsg(reply, 'bot');
+  } catch (e) {
+    removeLastBot();
+    addMsg("Sorry, I'm having connection issues. Contact us on WhatsApp: +233 59 477 5210", 'bot');
+  }
+}
+
+function addMsg(text, type, temp = false) {
+  const msgs = document.getElementById('chatMessages');
+  const el = document.createElement('div');
+  el.className = `msg ${type}`;
+  el.textContent = text;
+  if (temp) el.id = 'tempBot';
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function removeLastBot() { document.getElementById('tempBot')?.remove(); }
+
+/* ══════════════════════════════════════════
+   HERO SLIDER
+══════════════════════════════════════════ */
+let slideIndex = 0;
+let slideTimer = null;
+let slideProgress = 0;
+let progressTimer = null;
+const SLIDE_DURATION = 5000;
+const SLIDE_COUNT = 5;
+
+function goSlide(index) {
+  const slides = document.querySelectorAll('.hslide');
+  const dots = document.querySelectorAll('.hdot');
+  if (!slides.length) return;
+
+  // Exit current
+  slides[slideIndex].classList.add('exit-left');
+  slides[slideIndex].classList.remove('active');
+  dots[slideIndex].classList.remove('active');
+
+  // Small delay then remove exit class
+  const prev = slideIndex;
+  setTimeout(() => slides[prev].classList.remove('exit-left'), 800);
+
+  slideIndex = ((index % SLIDE_COUNT) + SLIDE_COUNT) % SLIDE_COUNT;
+
+  slides[slideIndex].classList.add('active');
+  dots[slideIndex].classList.add('active');
+
+  resetProgress();
+}
+
+function nextSlide() { goSlide(slideIndex + 1); }
+function prevSlide() { goSlide(slideIndex - 1); }
+
+function resetProgress() {
+  slideProgress = 0;
+  clearInterval(progressTimer);
+  clearTimeout(slideTimer);
+  const bar = document.getElementById('sliderProgressBar');
+  if (bar) bar.style.width = '0%';
+
+  const step = 100 / (SLIDE_DURATION / 50);
+  progressTimer = setInterval(() => {
+    slideProgress += step;
+    if (bar) bar.style.width = Math.min(slideProgress, 100) + '%';
+    if (slideProgress >= 100) {
+      clearInterval(progressTimer);
+    }
+  }, 50);
+
+  slideTimer = setTimeout(() => nextSlide(), SLIDE_DURATION);
+}
+
+// Touch/swipe support
+function initSliderSwipe() {
+  const slider = document.getElementById('heroSlider');
+  if (!slider) return;
+  let startX = 0;
+  slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+  }, { passive: true });
+}
+
+// Pause on hover
+function initSliderHover() {
+  const slider = document.getElementById('heroSlider');
+  if (!slider) return;
+  slider.addEventListener('mouseenter', () => {
+    clearInterval(progressTimer);
+    clearTimeout(slideTimer);
+  });
+  slider.addEventListener('mouseleave', () => resetProgress());
+}
+
+function initSlider() {
+  initSliderSwipe();
+  initSliderHover();
+  resetProgress();
+}
+
+/* ══════════════════════════════════════════
+   PAYMENT SUCCESS CHECK
+══════════════════════════════════════════ */
+function checkPaymentResult() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('payment') === 'success') {
+    toast('Payment successful! Order confirmed ⚡', 'success');
+    updateCartDot();
+    history.replaceState({}, '', '/');
+  } else if (params.get('payment') === 'failed') {
+    toast('Payment was not completed. Please try again.', 'error');
+    history.replaceState({}, '', '/');
+  }
+}
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+(async () => {
+  await Promise.all([checkAuth(), loadCurrency()]);
+  await updateCartDot();
+  loadHome();
+  checkPaymentResult();
+  initSlider();
+})();
+</script>
+</body>
+</html>
