@@ -279,28 +279,27 @@ img { max-width: 100%; }
   position: relative; z-index: 2;
 }
 
-/* Big icon circle */
-.slide-icon-wrap {
-  width: 220px; height: 220px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 80px rgba(255,255,255,0.08), 0 30px 80px rgba(0,0,0,0.4);
-  animation: iconFloat 4s ease-in-out infinite;
+/* Big image panel */
+.slide-img-wrap {
+  width: 100%; max-width: 460px;
+  aspect-ratio: 4/3;
+  border-radius: 20px;
+  overflow: hidden;
   position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  animation: iconFloat 6s ease-in-out infinite;
 }
-.slide-icon-wrap::after {
-  content: '';
-  position: absolute; inset: -12px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.08);
-  animation: ringPulse 3s ease-in-out infinite;
+.slide-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 8s ease;
 }
-@keyframes iconFloat {
-  0%,100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(3deg); }
-}
-@keyframes ringPulse {
-  0%,100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.08); opacity: 0.15; }
+.hslide.active .slide-img-wrap img { transform: scale(1.06); }
+.slide-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+  border-radius: 20px;
 }
 
 /* Floating particles around icon */
@@ -517,11 +516,14 @@ img { max-width: 100%; }
 .product-img-wrap {
   aspect-ratio: 1;
   background: linear-gradient(135deg, #f5f5f7 0%, #ebebed 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4.5rem; position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
-.product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.product-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.5s var(--transition);
+}
+.product-card:hover .product-img-wrap img { transform: scale(1.06); }
 .product-badge {
   position: absolute; top: 1rem; left: 1rem;
   background: var(--black); color: white;
@@ -823,30 +825,37 @@ td { padding: 0.9rem 1rem; border-top: 1px solid var(--gray-100); font-size: 0.8
 .toast.success { border-left-color: #34c759; }
 .toast.error { border-left-color: #ff3b30; }
 
-/* ─── WHATSAPP ─── */
-.wa-btn {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
-  width: 58px; height: 58px; border-radius: 50%;
-  background: #25d366; color: white;
-  border: none; font-size: 1.6rem;
-  box-shadow: 0 8px 32px rgba(37,211,102,0.5);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none;
-}
-.wa-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,0.65); }
+
 
 /* ─── CHATBOT ─── */
 .chat-toggle {
   position: fixed; bottom: 6.5rem; right: 2rem; z-index: 900;
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--blue); color: white; border: none;
-  font-size: 1.4rem; cursor: pointer;
-  box-shadow: 0 8px 32px var(--blue-glow);
-  transition: transform 0.2s;
+  width: 54px; height: 54px; border-radius: 16px;
+  background: linear-gradient(135deg, #0055b3, var(--blue));
+  color: white; border: none; cursor: pointer;
+  box-shadow: 0 8px 32px var(--blue-glow), 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
   display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
 }
-.chat-toggle:hover { transform: scale(1.08); }
+.chat-toggle:hover { transform: scale(1.08) translateY(-2px); box-shadow: 0 14px 40px var(--blue-glow); }
+.chat-toggle-logo {
+  font-size: 1rem; font-weight: 900;
+  letter-spacing: -0.5px; line-height: 1;
+}
+
+/* ─── WHATSAPP ─── */
+.wa-btn {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: linear-gradient(135deg, #1ebe57, #25d366);
+  color: white; border: none;
+  box-shadow: 0 8px 32px rgba(37,211,102,0.45);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.wa-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 14px 40px rgba(37,211,102,0.6); }
 .chat-box {
   position: fixed; bottom: 10rem; right: 2rem; z-index: 900;
   width: 340px; height: 460px;
@@ -913,7 +922,112 @@ footer {
 .footer-bottom a { color: rgba(255,255,255,0.4); }
 .footer-bottom a:hover { color: white; }
 
-/* ─── FEATURE STRIPS ─── */
+/* ─── COLORFUL UI POLISH ─── */
+
+/* Gradient accent line under nav */
+.nav::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), #a78bfa, #34c759, var(--blue));
+  background-size: 300% 100%;
+  animation: gradientShift 6s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.nav:not(.dark)::after { opacity: 1; }
+@keyframes gradientShift { 0%{background-position:0%} 100%{background-position:300%} }
+
+/* Section color accents */
+.eyebrow {
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  background: linear-gradient(90deg, var(--blue), #a78bfa);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+/* Category cards — colorful icon backgrounds */
+.cat-card .cat-icon {
+  width: 64px; height: 64px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 2rem;
+}
+.cat-card:nth-child(1) .cat-icon { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+.cat-card:nth-child(2) .cat-icon { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+.cat-card:nth-child(3) .cat-icon { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+.cat-card:nth-child(4) .cat-icon { background: linear-gradient(135deg, #cffafe, #a5f3fc); }
+.cat-card:nth-child(5) .cat-icon { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+.cat-card:nth-child(6) .cat-icon { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+
+/* Feature strip — colorful icons */
+.feature-icon {
+  width: 64px; height: 64px; border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem; font-size: 1.8rem;
+}
+.feature-item:nth-child(1) .feature-icon { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
+.feature-item:nth-child(2) .feature-icon { background: linear-gradient(135deg, #f0fdf4, #dcfce7); }
+.feature-item:nth-child(3) .feature-icon { background: linear-gradient(135deg, #fefce8, #fef9c3); }
+.feature-item:nth-child(4) .feature-icon { background: linear-gradient(135deg, #fdf4ff, #fae8ff); }
+
+/* Blog category tags — colorful */
+.blog-tag { font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 50px; letter-spacing: 0.5px; margin-bottom: 0.75rem; display: inline-block; }
+.blog-tag-policy { background: #dbeafe; color: #1d4ed8; }
+.blog-tag-sourcing { background: #d1fae5; color: #065f46; }
+.blog-tag-maintenance { background: #fef3c7; color: #92400e; }
+.blog-tag-news { background: #ede9fe; color: #5b21b6; }
+
+/* Sourcing banner — richer gradient */
+.sourcing-banner {
+  background: linear-gradient(135deg, #000814 0%, #001a4d 40%, #000d26 100%);
+  position: relative; overflow: hidden;
+}
+.sourcing-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 120%, rgba(41,151,255,0.2) 0%, transparent 70%);
+}
+
+/* Product card — colored top border on hover */
+.product-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), #a78bfa);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s var(--transition);
+  border-radius: 2px 2px 0 0;
+}
+.product-card:hover::before { transform: scaleX(1); }
+
+/* Stat tiles — colored left border */
+.stat-tile { border-left: 4px solid transparent; }
+.stat-tile:nth-child(1) { border-left-color: var(--blue); }
+.stat-tile:nth-child(2) { border-left-color: #34c759; }
+.stat-tile:nth-child(3) { border-left-color: #a78bfa; }
+.stat-tile:nth-child(4) { border-left-color: #f97316; }
+.stat-tile:nth-child(5) { border-left-color: #ec4899; }
+
+/* Footer social icons — platform colors on hover */
+.social-icon:nth-child(1):hover { border-color: #e1306c; color: #e1306c; background: rgba(225,48,108,0.08); } /* Instagram */
+.social-icon:nth-child(2):hover { border-color: white; color: white; background: rgba(255,255,255,0.08); } /* X */
+.social-icon:nth-child(3):hover { border-color: #ff0000; color: #ff0000; background: rgba(255,0,0,0.08); } /* YouTube */
+.social-icon:nth-child(4):hover { border-color: #25d366; color: #25d366; background: rgba(37,211,102,0.08); } /* WhatsApp */
+
+/* Chat header gradient */
+.chat-header {
+  background: linear-gradient(135deg, #000, #0a1628);
+  border-bottom: 1px solid rgba(41,151,255,0.2);
+}
+.chat-status { color: #34c759 !important; }
+
+/* Categories strip — subtle gradient bg */
+.categories-strip {
+  background: linear-gradient(180deg, #f5f5f7 0%, #eef2ff 100%);
+}
+
+/* ─── COLORFUL UI POLISH END ─── */
 .feature-strip {
   background: var(--gray-100); padding: 4rem 2rem;
 }
@@ -932,6 +1046,44 @@ footer {
   .form-row-2 { grid-template-columns: 1fr; }
   .chat-box { width: calc(100vw - 2rem); right: 1rem; }
 }
+.cat-card {
+  cursor:pointer;
+  border-right:.5px solid #e8e8e8;
+  border-bottom:.5px solid #e8e8e8;
+  position:relative;overflow:hidden;
+  background:#fff;aspect-ratio:4/3;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  transition:all .25s;
+}
+.cat-card:hover { filter:none; }
+.cat-bg {
+  position:absolute;inset:0;overflow:hidden;
+}
+.cat-bg img {
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .55s cubic-bezier(.4,0,.2,1);
+  filter:brightness(.82);
+}
+.cat-card:hover .cat-bg img {
+  transform:scale(1.07);filter:brightness(.6);
+}
+.cat-overlay {
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.1) 60%,transparent 100%);
+}
+.cat-bar {
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:#B07A3E;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.cat-card:hover .cat-bar { transform:scaleX(1); }
+.cat-info { position:relative;z-index:2;padding:1.1rem 1.3rem; }
+.cat-name { font-family:'Racing Sans One',sans-serif;font-size:.92rem;color:#fff;margin-bottom:.22rem;letter-spacing:.5px; }
+.cat-desc { font-family:'DM Sans',system-ui,sans-serif;font-size:.68rem;color:rgba(255,255,255,.48);line-height:1.4; }
+.cat-arrow { position:absolute;top:.9rem;right:1rem;z-index:3;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#B07A3E;opacity:0;transform:translateX(-4px);transition:all .22s; }
+.cat-card:hover .cat-arrow { opacity:1;transform:none; }
+/* cat-card image styles end */
 </style>
 </head>
 <body>
@@ -950,6 +1102,7 @@ footer {
   </div>
   <div class="nav-actions">
     <button class="nav-icon-btn" onclick="navigate('search')" title="Search">🔍</button>
+    <button class="nav-icon-btn" onclick="toggleTranslate()" title="Translate" style="font-size:0.75rem;font-weight:700;">🌐</button>
     <button class="nav-icon-btn" id="authNavBtn" onclick="navigate('auth')" title="Account">👤</button>
     <button class="nav-icon-btn" id="ordersNavBtn" onclick="navigate('orders')" title="Orders" style="display:none">📦</button>
     <button class="nav-icon-btn" id="adminNavBtn" onclick="navigate('admin')" title="Admin" style="display:none">⚙️</button>
@@ -971,14 +1124,9 @@ footer {
       <div class="hslide-bg-grid"></div>
       <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(41,151,255,0.22) 0%, transparent 70%);"></div>
       <div class="hslide-visual">
-        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #0071e3, #2997ff);">
-          <span style="font-size:5rem;">⚡</span>
-        </div>
-        <div class="slide-particles">
-          <span class="particle" style="--x:20%;--y:30%;--d:2.5s;font-size:1.2rem;">🔋</span>
-          <span class="particle" style="--x:75%;--y:20%;--d:3.2s;font-size:1rem;">⚙️</span>
-          <span class="particle" style="--x:85%;--y:65%;--d:2s;font-size:1.1rem;">🔌</span>
-          <span class="particle" style="--x:10%;--y:70%;--d:3.8s;font-size:0.9rem;">❄️</span>
+        <div class="slide-img-wrap">
+          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80&fit=crop" alt="Electric Vehicle charging">
+          <div class="slide-img-overlay"></div>
         </div>
       </div>
       <div class="hslide-content">
@@ -997,8 +1145,9 @@ footer {
       <div class="hslide-bg-grid"></div>
       <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(52,197,89,0.2) 0%, transparent 70%);"></div>
       <div class="hslide-visual">
-        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #1a7f3c, #34c759);">
-          <span style="font-size:5rem;">🔋</span>
+        <div class="slide-img-wrap">
+          <img src="https://images.unsplash.com/photo-1620714223084-8fcacc2107be?w=600&q=80&fit=crop" alt="EV Battery Pack">
+          <div class="slide-img-overlay" style="background:linear-gradient(135deg,rgba(5,13,26,0.6),rgba(10,31,10,0.4))"></div>
         </div>
         <div class="slide-spec-tags">
           <span class="spec-tag">72V Systems</span>
@@ -1023,8 +1172,9 @@ footer {
       <div class="hslide-bg-grid"></div>
       <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(175,82,222,0.2) 0%, transparent 70%);"></div>
       <div class="hslide-visual">
-        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">
-          <span style="font-size:5rem;">⚡</span>
+        <div class="slide-img-wrap">
+          <img src="https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?w=600&q=80&fit=crop" alt="EV Charging Station">
+          <div class="slide-img-overlay" style="background:linear-gradient(135deg,rgba(13,8,32,0.6),rgba(26,13,53,0.4))"></div>
         </div>
         <div class="slide-spec-tags">
           <span class="spec-tag">7kW Home</span>
@@ -1049,8 +1199,9 @@ footer {
       <div class="hslide-bg-grid"></div>
       <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(249,115,22,0.2) 0%, transparent 70%);"></div>
       <div class="hslide-visual">
-        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #c2410c, #f97316);">
-          <span style="font-size:5rem;">🔧</span>
+        <div class="slide-img-wrap">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop" alt="EV Motor Conversion">
+          <div class="slide-img-overlay" style="background:linear-gradient(135deg,rgba(26,10,0,0.6),rgba(45,18,0,0.4))"></div>
         </div>
         <div class="slide-spec-tags">
           <span class="spec-tag">Motorcycles</span>
@@ -1075,8 +1226,9 @@ footer {
       <div class="hslide-bg-grid"></div>
       <div class="hslide-glow" style="background: radial-gradient(ellipse 60% 50% at 50% 110%, rgba(41,151,255,0.25) 0%, transparent 70%);"></div>
       <div class="hslide-visual">
-        <div class="slide-icon-wrap" style="background: linear-gradient(135deg, #0f4c8a, #2997ff);">
-          <span style="font-size:5rem;">🚗</span>
+        <div class="slide-img-wrap">
+          <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&q=80&fit=crop" alt="Electric Car BYD">
+          <div class="slide-img-overlay" style="background:linear-gradient(135deg,rgba(0,8,20,0.55),rgba(0,18,51,0.4))"></div>
         </div>
         <div class="slide-spec-tags">
           <span class="spec-tag">BYD</span>
@@ -1160,7 +1312,7 @@ footer {
   </div>
 
   <!-- SOURCING BANNER -->
-  <div style="background:var(--black); padding:6rem 2rem; text-align:center;">
+  <div class="sourcing-banner" style="padding:6rem 2rem; text-align:center;">
     <div style="max-width:700px; margin:0 auto;">
       <div class="eyebrow" style="color:var(--blue-bright)">Vehicle Sourcing Service</div>
       <h2 class="section-title" style="color:white; margin-bottom:1rem;">We bring the <em>EV to you.</em></h2>
@@ -1407,32 +1559,42 @@ footer {
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- WHATSAPP -->
-<a class="wa-btn" href="https://wa.me/233594775210" target="_blank" title="Chat on WhatsApp">💬</a>
+<!-- WHATSAPP — real SVG logo -->
+<a class="wa-btn" href="https://wa.me/233594775210" target="_blank" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
 
-<!-- CHATBOT TOGGLE -->
-<button class="chat-toggle" onclick="toggleChat()" id="chatToggle" title="AI Assistant">⚡</button>
+<!-- CHATBOT TOGGLE — EV logo -->
+<button class="chat-toggle" onclick="toggleChat()" id="chatToggle" title="AI Assistant">
+  <span class="chat-toggle-logo" id="chatToggleLogo">EV</span>
+  <span class="chat-toggle-close" id="chatToggleClose" style="display:none;font-size:1.1rem;">✕</span>
+</button>
 
 <!-- CHATBOT -->
 <div class="chat-box" id="chatBox">
   <div class="chat-header">
-    <div class="chat-av">⚡</div>
+    <div class="chat-av"><span style="font-size:0.75rem;font-weight:800;letter-spacing:-0.5px;">EV</span></div>
     <div class="chat-hinfo">
       <div class="chat-name">EV Assistant</div>
-      <div class="chat-status">● Online</div>
+      <div class="chat-status">&#9679; Online</div>
     </div>
+    <button onclick="toggleChat()" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.6);font-size:1.1rem;cursor:pointer;padding:0.2rem 0.4rem;">✕</button>
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="msg bot">Hi! 👋 I'm your EV Assistant. Ask me anything about electric vehicles, our parts, or how to source an EV to Ghana!</div>
   </div>
   <div class="chat-input-row">
     <input class="chat-input" id="chatInput" placeholder="Ask about EVs..." onkeydown="if(event.key==='Enter')sendChat()">
-    <button class="chat-send" onclick="sendChat()">➤</button>
+    <button class="chat-send" onclick="sendChat()">
+      <svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
   </div>
 </div>
 
-<!-- GOOGLE TRANSLATE -->
-<div id="google_translate_element"></div>
+<!-- GOOGLE TRANSLATE — hidden, toggled via nav -->
+<div id="google_translate_element" style="position:fixed;top:72px;right:1rem;z-index:1100;display:none;background:white;border-radius:12px;padding:0.6rem 1rem;box-shadow:0 8px 32px rgba(0,0,0,0.15);border:1px solid var(--gray-200);"></div>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- FOOTER -->
@@ -1474,7 +1636,7 @@ footer {
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2024 <strong style="color:white;">EV Shop GH</strong>. All rights reserved.</span>
+      <span>© 2026 <strong style="color:white;">EV Shop GH</strong>. All rights reserved.</span>
       <span>Built with ⚡ in Ghana</span>
     </div>
   </div>
@@ -1608,15 +1770,57 @@ function authTab(t) {
 ══════════════════════════════════════════ */
 const catEmoji = s => ({ 'battery-systems': '🔋', 'charging': '⚡', 'motors': '⚙️', 'cooling': '❄️', 'accessories': '🛡️', 'conversion': '🔧' }[s] || '🔌');
 
+// Unsplash image map per category — multiple images rotated by product id
+const catImages = {
+  'battery-systems': [
+    'https://images.unsplash.com/photo-1620714223084-8fcacc2107be?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=75&fit=crop',
+  ],
+  'charging': [
+    'https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1671214337012-5b3b2d7c0a0e?w=400&q=75&fit=crop',
+  ],
+  'motors': [
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1600008945459-a8e7f428b8ac?w=400&q=75&fit=crop',
+  ],
+  'cooling': [
+    'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1600008944964-3b12f35e4b32?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&fit=crop',
+  ],
+  'accessories': [
+    'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=400&q=75&fit=crop',
+  ],
+  'conversion': [
+    'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400&q=75&fit=crop',
+    'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=75&fit=crop',
+  ],
+};
+
+function getProductImg(p) {
+  const imgs = catImages[p.cat_slug] || catImages['accessories'];
+  return imgs[p.id % imgs.length];
+}
+
 function productCard(p) {
   const save = p.original_price_ghs && p.original_price_ghs > p.price_ghs
     ? Math.round((1 - p.price_ghs / p.original_price_ghs) * 100) : 0;
+  const imgUrl = getProductImg(p);
   return `
   <div class="product-card" onclick="viewProduct(${p.id})">
     <div class="product-img-wrap">
       ${p.badge ? `<span class="product-badge blue">${p.badge}</span>` : ''}
       ${save > 0 ? `<span class="product-badge sale" style="left:auto;right:1rem;">−${save}%</span>` : ''}
-      <span>${catEmoji(p.cat_slug)}</span>
+      <img src="${imgUrl}" alt="${p.name}" loading="lazy"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="product-img-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:4.5rem;background:linear-gradient(135deg,#f5f5f7,#e8e8ed);">${catEmoji(p.cat_slug)}</div>
     </div>
     <div class="product-info">
       <div class="product-cat-tag">${p.cat_name || 'EV Parts'}</div>
@@ -1645,11 +1849,26 @@ async function loadHome() {
 
   document.getElementById('featuredGrid').innerHTML = featData.products.map(productCard).join('');
 
+  const catImageMap = {
+    'battery-systems': '/images/battery-systems.jpg',
+    'charging': '/images/charging.jpg',
+    'motors': '/images/motors.jpg',
+    'cooling': '/images/cooling.jpg',
+    'accessories': '/images/accessories.jpg',
+    'conversion': '/images/conversion.jpg',
+  };
   document.getElementById('homeCatsGrid').innerHTML = catsData.categories.map(c => `
     <div class="cat-card" onclick="filterCat('${c.slug}')">
-      <div class="cat-icon">${c.icon}</div>
-      <div class="cat-name">${c.name}</div>
-      <div class="cat-desc">${c.description}</div>
+      <div class="cat-bg">
+        <img src="${catImageMap[c.slug] || ''}" alt="${c.name}" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="cat-overlay"></div>
+      <div class="cat-bar"></div>
+      <div class="cat-info">
+        <div class="cat-name">${c.name}</div>
+        <div class="cat-desc">${c.description}</div>
+      </div>
+      <span class="cat-arrow">→</span>
     </div>`).join('');
 
   document.getElementById('homeBlogGrid').innerHTML = blogData.posts.slice(0, 3).map(blogCard).join('');
@@ -1710,7 +1929,10 @@ async function viewProduct(id) {
   document.getElementById('detailContent').innerHTML = `
     <button class="back-link" onclick="navigate('shop')">← Back to Parts</button>
     <div class="detail-grid">
-      <div class="detail-img"><span>${catEmoji(p.cat_slug)}</span></div>
+      <div class="detail-img" style="padding:0;overflow:hidden;">
+        <img src="${getProductImg(p)}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg);"
+          onerror="this.style.display='none';this.parentElement.innerHTML='<span style=font-size:8rem>${catEmoji(p.cat_slug)}</span>'">
+      </div>
       <div>
         <div class="detail-cat">${p.cat_icon || '⚡'} ${p.cat_name}</div>
         <h1 class="detail-name">${p.name}</h1>
@@ -1858,11 +2080,12 @@ async function submitQuote() {
 ══════════════════════════════════════════ */
 function blogCard(p) {
   const icons = { Policy: '📋', Sourcing: '🚗', Maintenance: '🔧', News: '📰' };
+  const tagClass = { Policy: 'blog-tag-policy', Sourcing: 'blog-tag-sourcing', Maintenance: 'blog-tag-maintenance', News: 'blog-tag-news' };
   return `
   <div class="blog-card" onclick="viewPost('${p.slug}')">
     <div class="blog-card-img" style="font-size:4rem;">${icons[p.category] || '⚡'}</div>
     <div class="blog-card-body">
-      <span class="blog-tag">${p.category}</span>
+      <span class="blog-tag ${tagClass[p.category] || 'blog-tag-news'}">${p.category}</span>
       <div class="blog-title">${p.title}</div>
       <div class="blog-excerpt">${p.excerpt}</div>
       <div class="blog-meta"><span>By ${p.author}</span><span>·</span><span>${new Date(p.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span></div>
@@ -2046,8 +2269,17 @@ let chatOpen = false;
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('chatBox').classList.toggle('open', chatOpen);
-  document.getElementById('chatToggle').textContent = chatOpen ? '✕' : '⚡';
+  document.getElementById('chatToggleLogo').style.display = chatOpen ? 'none' : 'inline';
+  document.getElementById('chatToggleClose').style.display = chatOpen ? 'inline' : 'none';
 }
+
+function toggleTranslate() {
+  const el = document.getElementById('google_translate_element');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// Override to remove the duplicate toggle
+
 
 async function sendChat() {
   const input = document.getElementById('chatInput');
