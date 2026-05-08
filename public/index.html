@@ -862,11 +862,11 @@
                         height: 100%;
                         object-fit: cover;
                         display: block;
-                        transition: transform 0.9s var(--transition);
+                        transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
                     }
 
                 .product-card:hover .product-img-wrap img {
-                    transform: scale(1.04);
+                    transform: scale(1.06);
                 }
 
                 .product-badge {
@@ -889,6 +889,18 @@
                         background: rgba(180, 30, 30, 0.9);
                         left: auto;
                         right: 0.875rem;
+                    }
+
+                    .product-badge.stock-low {
+                        background: rgba(217, 119, 6, 0.9);
+                        top: 0.875rem;
+                        left: 0.875rem;
+                        animation: pulse-glow 2s ease-in-out infinite;
+                    }
+
+                    @keyframes pulse-glow {
+                        0%, 100% { opacity: 0.9; }
+                        50% { opacity: 0.7; }
                     }
 
                 .product-info {
@@ -959,11 +971,17 @@
                     font-size: 0.82rem;
                     letter-spacing: 0.2px;
                     text-transform: uppercase;
-                    transition: all 0.3s var(--transition);
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    position: relative;
                 }
 
                     .add-cart-btn:hover {
                         background: var(--black);
+                        transform: translateY(-1px);
+                    }
+
+                    .add-cart-btn:active {
+                        transform: translateY(0);
                     }
 
                 @media (hover: hover) {
@@ -1314,17 +1332,18 @@
                     align-items: center;
                     justify-content: center;
                     overflow: hidden;
+                    animation: fadeInScale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                     .detail-img img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
-                        transition: transform 0.8s ease;
+                        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
                     }
 
                     .detail-img:hover img {
-                        transform: scale(1.02);
+                        transform: scale(1.05);
                     }
 
                 .detail-cat {
@@ -1416,17 +1435,72 @@
                     gap: 0.5rem;
                     font-size: 0.8rem;
                     font-weight: 600;
+                    padding: 0.75rem 1rem;
+                    border-radius: 6px;
                     margin-bottom: 2rem;
                     text-transform: uppercase;
                     letter-spacing: 0.5px;
+                    animation: fadeInScale 0.5s ease-out;
                 }
 
-                .stock-in {
+                @keyframes fadeInScale {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.95);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+
+                .stock-abundant {
+                    background: rgba(22, 163, 74, 0.1);
                     color: #16a34a;
                 }
 
+                .stock-low {
+                    background: rgba(217, 119, 6, 0.1);
+                    color: #d97706;
+                    animation: fadeInScale 0.5s ease-out, pulse-stock 2s ease-in-out infinite;
+                }
+
+                @keyframes pulse-stock {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0.8; }
+                }
+
                 .stock-out {
-                    color: #c00;
+                    background: rgba(220, 38, 38, 0.1);
+                    color: #dc2626;
+                }
+
+                .color-selector {
+                    margin-bottom: 2rem;
+                }
+
+                .color-opt {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    border: 2px solid transparent;
+                }
+
+                .color-opt:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+
+                input[type="radio"]:checked + .color-opt,
+                #color-white:checked + label.color-opt {
+                    border-color: var(--black);
+                    background: white;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
                 }
 
                 .qty-row {
@@ -1446,11 +1520,17 @@
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
-                    transition: all 0.2s;
+                    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                     .qty-btn:hover {
                         border-color: var(--black);
+                        background: var(--gray-50);
+                        transform: translateY(-1px);
+                    }
+
+                    .qty-btn:active {
+                        transform: translateY(0);
                     }
 
                 .qty-num {
@@ -1458,6 +1538,7 @@
                     font-weight: 700;
                     min-width: 2rem;
                     text-align: center;
+                    transition: all 0.2s;
                 }
 
                 .add-detail-btn {
@@ -1472,11 +1553,19 @@
                     font-size: 0.85rem;
                     text-transform: uppercase;
                     letter-spacing: 1.5px;
-                    transition: all 0.3s var(--transition);
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    position: relative;
+                    overflow: hidden;
                 }
 
-                    .add-detail-btn:hover {
+                    .add-detail-btn:hover:not(:disabled) {
                         background: var(--gray-800);
+                        transform: translateY(-2px);
+                        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+                    }
+
+                    .add-detail-btn:active:not(:disabled) {
+                        transform: translateY(0);
                     }
 
                 .back-link {
@@ -1527,6 +1616,18 @@
                     padding: 1.5rem;
                     border-bottom: 1px solid var(--gray-100);
                     align-items: center;
+                    animation: slideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+                @keyframes slideInLeft {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
                 }
 
                     .cart-row:last-child {
@@ -1666,11 +1767,18 @@
                     text-transform: uppercase;
                     letter-spacing: 1.5px;
                     margin-top: 1.5rem;
-                    transition: all 0.3s var(--transition);
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    position: relative;
                 }
 
                     .checkout-btn:hover {
                         background: var(--gray-800);
+                        transform: translateY(-2px);
+                        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                    }
+
+                    .checkout-btn:active {
+                        transform: translateY(0);
                     }
 
                 .cart-empty-state {
@@ -1704,11 +1812,22 @@
                     align-items: center;
                     justify-content: center;
                     backdrop-filter: blur(6px);
+                    opacity: 0;
+                    animation: overlayIn 0.3s ease-out forwards;
                 }
 
                     .overlay.open {
                         display: flex;
                     }
+
+                @keyframes overlayIn {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
+                }
 
                 .modal {
                     background: white;
@@ -1718,7 +1837,7 @@
                     overflow-y: auto;
                     border: 1px solid var(--gray-200);
                     box-shadow: 0 40px 100px rgba(0,0,0,0.15);
-                    animation: modalIn 0.4s var(--transition);
+                    animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                 @keyframes modalIn {
@@ -3272,51 +3391,43 @@
         /* ══════════════════════════════════════════
         PRODUCT HELPERS
         ══════════════════════════════════════════ */
-        const catImages = {
-        'battery-systems': [
-        'https://images.unsplash.com/photo-1620714223084-8fcacc2107be?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=75&fit=crop',
-        ],
-        'charging': [
-        'https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1671214337012-5b3b2d7c0a0e?w=400&q=75&fit=crop',
-        ],
-        'motors': [
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1600008945459-a8e7f428b8ac?w=400&q=75&fit=crop',
-        ],
-        'cooling': [
-        'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1600008944964-3b12f35e4b32?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&fit=crop',
-        ],
-        'accessories': [
-        'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=400&q=75&fit=crop',
-        ],
-        'conversion': [
-        'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=75&fit=crop',
-        ],
+        const productImageMap = {
+        1: ['battery-001-a.jpg', 'battery-001-b.jpg', 'battery-001-c.jpg'],
+        2: ['battery-002-a.jpg', 'battery-002-b.jpg', 'battery-002-c.jpg'],
+        3: ['battery-003-a.jpg', 'battery-003-b.jpg', 'battery-003-c.jpg'],
+        4: ['charger-001-a.jpg', 'charger-001-b.jpg', 'charger-001-c.jpg'],
+        5: ['charger-002-a.jpg', 'charger-002-b.jpg', 'charger-002-c.jpg'],
+        6: ['charger-003-a.jpg', 'charger-003-b.jpg', 'charger-003-c.jpg'],
+        7: ['motor-001-a.jpg', 'motor-001-b.jpg', 'motor-001-c.jpg'],
+        8: ['motor-002-a.jpg', 'motor-002-b.jpg', 'motor-002-c.jpg'],
+        9: ['motor-003-a.jpg', 'motor-003-b.jpg', 'motor-003-c.jpg'],
+        10: ['cooling-001-a.jpg', 'cooling-001-b.jpg', 'cooling-001-c.jpg'],
+        11: ['cooling-002-a.jpg', 'cooling-002-b.jpg', 'cooling-002-c.jpg'],
+        12: ['accessory-001-a.jpg', 'accessory-001-b.jpg', 'accessory-001-c.jpg'],
+        13: ['accessory-002-a.jpg', 'accessory-002-b.jpg', 'accessory-002-c.jpg'],
+        14: ['accessory-003-a.jpg', 'accessory-003-b.jpg', 'accessory-003-c.jpg'],
+        15: ['kit-001-a.jpg', 'kit-001-b.jpg', 'kit-001-c.jpg'],
+        16: ['kit-002-a.jpg', 'kit-002-b.jpg', 'kit-002-c.jpg'],
         };
         function getProductImg(p) {
-        const imgs = catImages[p.cat_slug] || catImages['accessories'];
-        return imgs[p.id % imgs.length];
+        const imgs = productImageMap[p.id];
+        return imgs ? `/images/${imgs[0]}` : '/images/accessory-001-a.jpg';
+        }
+        function getAllProductImages(p) {
+        const imgs = productImageMap[p.id];
+        return imgs ? imgs.map(img => `/images/${img}`) : ['/images/accessory-001-a.jpg'];
         }
         function productCard(p) {
         const save = p.original_price_ghs && p.original_price_ghs > p.price_ghs
         ? Math.round((1 - p.price_ghs / p.original_price_ghs) * 100) : 0;
         const imgUrl = getProductImg(p);
+        const stockText = p.stock > 0 && p.stock <= 5 ? `only ${p.stock} left` : '';
         return `
         <div class="product-card reveal" onclick="viewProduct(${p.id})">
         <div class="product-img-wrap">
         ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
         ${save > 0 ? `<span class="product-badge sale">−${save}%</span>` : ''}
+        ${stockText ? `<span class="product-badge stock-low">${stockText}</span>` : ''}
         <img src="${imgUrl}" alt="${p.name}" loading="lazy"
         onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#f0f0f2,#e4e4e8)'">
         </div>
@@ -3422,11 +3533,16 @@
         const { product: p } = await api(`/products/${id}`);
         const save = p.original_price_ghs && p.original_price_ghs > p.price_ghs
         ? Math.round((1 - p.price_ghs / p.original_price_ghs) * 100) : 0;
+        
+        const isCharger = p.id >= 4 && p.id <= 6;
+        const stockClass = p.stock > 5 ? 'stock-abundant' : p.stock > 0 ? 'stock-low' : 'stock-out';
+        const stockMsg = p.stock > 5 ? 'In Stock' : p.stock > 0 ? `Only ${p.stock} left in stock` : 'Out of Stock';
+        
         document.getElementById('detailContent').innerHTML = `
         <button class="back-link" onclick="navigate('shop')">Back to Parts</button>
         <div class="detail-grid">
         <div class="detail-img">
-        <img src="${getProductImg(p)}" alt="${p.name}"
+        <img src="${getProductImg(p)}" alt="${p.name}" class="detail-main-img"
         onerror="this.style.display='none';this.parentElement.innerHTML='<span style=font-family:Halfre,sans-serif;font-size:2rem;font-weight:700;color:#ccc>EV</span>'">
         </div>
         <div>
@@ -3442,11 +3558,26 @@
         <div class="detail-specs">
         ${p.compatibility ? `<div class="spec-row"><span class="spec-label">Compatibility</span><span class="spec-val">${p.compatibility}</span></div>` : ''}
         ${p.weight ? `<div class="spec-row"><span class="spec-label">Weight</span><span class="spec-val">${p.weight}</span></div>` : ''}
-        <div class="spec-row"><span class="spec-label">Stock</span><span class="spec-val">${p.stock > 0 ? `${p.stock} units` : 'Out of stock'}</span></div>
+        <div class="spec-row"><span class="spec-label">Stock</span><span class="spec-val">${p.stock > 0 ? `${p.stock} units available` : 'Out of stock'}</span></div>
         </div>
-        <div class="stock-badge ${p.stock > 0 ? 'stock-in' : 'stock-out'}">
-        ${p.stock > 0 ? 'In Stock' : 'Out of Stock'}
+        <div class="stock-badge ${stockClass}">
+        ${stockMsg}
         </div>
+        ${isCharger ? `
+        <div class="color-selector">
+        <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.75rem;color:var(--gray-700);">Color Option</label>
+        <div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;">
+        <input type="radio" name="charger-color" value="white" id="color-white" checked style="display:none;">
+        <label for="color-white" class="color-opt" style="background:#f5f5f7;border:2px solid #000;"><span style="display:inline-block;width:24px;height:24px;background:white;border:1px solid #ddd;border-radius:4px;"></span></label>
+        <input type="radio" name="charger-color" value="black" id="color-black" style="display:none;">
+        <label for="color-black" class="color-opt" style="background:#f5f5f7;"><span style="display:inline-block;width:24px;height:24px;background:black;border-radius:4px;"></span></label>
+        <input type="radio" name="charger-color" value="red" id="color-red" style="display:none;">
+        <label for="color-red" class="color-opt" style="background:#f5f5f7;"><span style="display:inline-block;width:24px;height:24px;background:#d91e18;border-radius:4px;"></span></label>
+        <input type="radio" name="charger-color" value="grey" id="color-grey" style="display:none;">
+        <label for="color-grey" class="color-opt" style="background:#f5f5f7;"><span style="display:inline-block;width:24px;height:24px;background:#808080;border-radius:4px;"></span></label>
+        </div>
+        </div>
+        ` : ''}
         ${p.stock > 0 ? `
         <div class="qty-row">
         <button class="qty-btn" onclick="chQty(-1)">−</button>
