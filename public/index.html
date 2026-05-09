@@ -3272,53 +3272,57 @@
         /* ══════════════════════════════════════════
         PRODUCT HELPERS
         ══════════════════════════════════════════ */
-        const catImages = {
-        'battery-systems': [
-        'https://images.unsplash.com/photo-1620714223084-8fcacc2107be?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=75&fit=crop',
-        ],
-        'charging': [
-        'https://images.unsplash.com/photo-1647166545674-ce28ce93bdca?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1671214337012-5b3b2d7c0a0e?w=400&q=75&fit=crop',
-        ],
-        'motors': [
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1600008945459-a8e7f428b8ac?w=400&q=75&fit=crop',
-        ],
-        'cooling': [
-        'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1600008944964-3b12f35e4b32?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75&fit=crop',
-        ],
-        'accessories': [
-        'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=400&q=75&fit=crop',
-        ],
-        'conversion': [
-        'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400&q=75&fit=crop',
-        'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=75&fit=crop',
-        ],
+        const productImages = {
+          1: ['/images/products/battery-001-a.jpg','/images/products/battery-001-b.jpg','/images/products/battery-001-c.jpg'],
+          2: ['/images/products/battery-002-a.jpg','/images/products/battery-002-b.jpg','/images/products/battery-002-c.jpg'],
+          3: ['/images/products/battery-003-a.jpg','/images/products/battery-003-b.jpg','/images/products/battery-003-c.jpg'],
+          4: ['/images/products/charger-001-a.jpg','/images/products/charger-001-b.jpg','/images/products/charger-001-c.jpg'],
+          5: ['/images/products/charger-002-a.jpg','/images/products/charger-002-b.jpg','/images/products/charger-002-c.jpg'],
+          6: ['/images/products/charger-003-a.jpg','/images/products/charger-003-b.jpg','/images/products/charger-003-c.jpg'],
+          7: ['/images/products/motor-001-a.jpg','/images/products/motor-001-b.jpg','/images/products/motor-001-c.jpg'],
+          8: ['/images/products/motor-002-a.jpg','/images/products/motor-002-b.jpg','/images/products/motor-002-c.jpg'],
+          9: ['/images/products/motor-003-a.jpg','/images/products/motor-003-b.jpg','/images/products/motor-003-c.jpg'],
+          10: ['/images/products/cooling-001-a.jpg','/images/products/cooling-001-b.jpg','/images/products/cooling-001-c.jpg'],
+          11: ['/images/products/cooling-002-a.jpg','/images/products/cooling-002-b.jpg','/images/products/cooling-002-c.jpg'],
+          12: ['/images/products/accessory-001-a.jpg','/images/products/accessory-001-b.jpg','/images/products/accessory-001-c.jpg'],
+          13: ['/images/products/accessory-002-a.jpg','/images/products/accessory-002-b.jpg','/images/products/accessory-002-c.jpg'],
+          14: ['/images/products/accessory-003-a.jpg','/images/products/accessory-003-b.jpg','/images/products/accessory-003-c.jpg'],
+          15: ['/images/products/kit-001-a.jpg','/images/products/kit-001-b.jpg','/images/products/kit-001-c.jpg'],
+          16: ['/images/products/kit-002-a.jpg','/images/products/kit-002-b.jpg','/images/products/kit-002-c.jpg'],
         };
+
+        const productColors = {
+          4: ['Black','Grey','White','Red'],
+          5: ['Black','Grey','White','Red'],
+          6: ['Black','Grey','White','Red'],
+        };
+
         function getProductImg(p) {
-        const imgs = catImages[p.cat_slug] || catImages['accessories'];
-        return imgs[p.id % imgs.length];
+          const imgs = productImages[p.id];
+          if (imgs && imgs.length) return imgs[0];
+          return '/images/products/fallback.jpg';
+        }
+
+        function getProductGallery(p) {
+          return productImages[p.id] || ['/images/products/fallback.jpg'];
         }
         function productCard(p) {
         const save = p.original_price_ghs && p.original_price_ghs > p.price_ghs
         ? Math.round((1 - p.price_ghs / p.original_price_ghs) * 100) : 0;
-        const imgUrl = getProductImg(p);
+        const imgs = getProductGallery(p);
+        const primary = imgs[0];
+        const hover = imgs[1] || primary;
+        const urgency = p.stock > 0 && p.stock <= 5;
         return `
         <div class="product-card reveal" onclick="viewProduct(${p.id})">
         <div class="product-img-wrap">
         ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
         ${save > 0 ? `<span class="product-badge sale">−${save}%</span>` : ''}
-        <img src="${imgUrl}" alt="${p.name}" loading="lazy"
-        onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#f0f0f2,#e4e4e8)'">
+        ${urgency ? `<span class="product-badge urgency">Only ${p.stock} left</span>` : ''}
+        <img class="product-img-primary" src="${primary}" alt="${p.name}" loading="lazy"
+        onerror="this.onerror=null;this.src='${hover}'">
+        <img class="product-img-hover" src="${hover}" alt="${p.name}" loading="lazy"
+        onerror="this.style.display='none'">
         </div>
         <div class="product-info">
         <div class="product-cat-tag">${p.cat_name || 'EV Parts'}</div>
@@ -3422,41 +3426,81 @@
         const { product: p } = await api(`/products/${id}`);
         const save = p.original_price_ghs && p.original_price_ghs > p.price_ghs
         ? Math.round((1 - p.price_ghs / p.original_price_ghs) * 100) : 0;
+        const gallery = getProductGallery(p);
+        const hasColors = productColors[p.id];
+        const urgency = p.stock > 0 && p.stock <= 5;
+
+        const galleryThumbs = gallery.map((img, i) => `
+          <div class="detail-gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchGalleryImg('${img}', this)">
+            <img src="${img}" alt="${p.name} view ${i + 1}" loading="lazy">
+          </div>
+        `).join('');
+
+        const colorSelector = hasColors ? `
+          <div class="color-selector">
+            <div class="color-label">Select Color</div>
+            <div class="color-options">
+              ${hasColors.map(c => `
+                <div class="color-option ${c.toLowerCase()} ${c === 'Black' ? 'active' : ''}" 
+                     onclick="selectColor(this, '${c}')" 
+                     data-color="${c}"
+                     title="${c}"></div>
+              `).join('')}
+            </div>
+            <div class="color-name" id="selectedColorName">Black</div>
+          </div>
+        ` : '';
+
+        const descHtml = p.description ? p.description.split('\n').map(line => {
+          line = line.trim();
+          if (!line) return '';
+          if (line.startsWith('- ')) return `<li>${line.substring(2)}</li>`;
+          if (line.startsWith('• ')) return `<li>${line.substring(2)}</li>`;
+          return `<p>${line}</p>`;
+        }).join('') : '';
+
         document.getElementById('detailContent').innerHTML = `
         <button class="back-link" onclick="navigate('shop')">Back to Parts</button>
         <div class="detail-grid">
-        <div class="detail-img">
-        <img src="${getProductImg(p)}" alt="${p.name}"
-        onerror="this.style.display='none';this.parentElement.innerHTML='<span style=font-family:Halfre,sans-serif;font-size:2rem;font-weight:700;color:#ccc>EV</span>'">
-        </div>
-        <div>
-        <div class="detail-cat">${p.cat_name}</div>
-        <h1 class="detail-name">${p.name}</h1>
-        <div class="detail-sku">SKU ${p.sku || 'N/A'}</div>
-        <div class="detail-price-block">
-        <span class="detail-price">${fmt(p.price_ghs)}</span>
-        ${p.original_price_ghs && p.original_price_ghs > p.price_ghs ? `<span class="detail-orig">${fmt(p.original_price_ghs)}</span>` : ''}
-        ${save > 0 ? `<div class="detail-save">You save ${save}% · ${fmt(p.original_price_ghs - p.price_ghs)}</div>` : ''}
-        </div>
-        <p class="detail-desc">${p.description || ''}</p>
-        <div class="detail-specs">
-        ${p.compatibility ? `<div class="spec-row"><span class="spec-label">Compatibility</span><span class="spec-val">${p.compatibility}</span></div>` : ''}
-        ${p.weight ? `<div class="spec-row"><span class="spec-label">Weight</span><span class="spec-val">${p.weight}</span></div>` : ''}
-        <div class="spec-row"><span class="spec-label">Stock</span><span class="spec-val">${p.stock > 0 ? `${p.stock} units` : 'Out of stock'}</span></div>
-        </div>
-        <div class="stock-badge ${p.stock > 0 ? 'stock-in' : 'stock-out'}">
-        ${p.stock > 0 ? 'In Stock' : 'Out of Stock'}
-        </div>
-        ${p.stock > 0 ? `
-        <div class="qty-row">
-        <button class="qty-btn" onclick="chQty(-1)">−</button>
-        <span class="qty-num" id="detailQty">1</span>
-        <button class="qty-btn" onclick="chQty(1)">+</button>
-        <span style="color:var(--gray-500);font-size:0.85rem;">units</span>
-        </div>
-        <button class="add-detail-btn" onclick="addToCartQty(${p.id})">Add to Cart</button>
-        ` : `<button class="add-detail-btn" disabled style="opacity:0.4;cursor:not-allowed;">Out of Stock</button>`}
-        </div>
+          <div class="detail-gallery-wrap">
+            <div class="detail-main-img">
+              <img id="galleryMain" src="${gallery[0]}" alt="${p.name}" loading="eager"
+                onerror="this.onerror=null;this.src='${gallery[1] || gallery[0]}'">
+            </div>
+            <div class="detail-gallery-row">
+              ${galleryThumbs}
+            </div>
+          </div>
+          <div>
+            <div class="detail-cat">${p.cat_name}</div>
+            <h1 class="detail-name">${p.name}</h1>
+            <div class="detail-sku">SKU ${p.sku || 'N/A'}</div>
+            <div class="detail-price-block">
+              <span class="detail-price">${fmt(p.price_ghs)}</span>
+              ${p.original_price_ghs && p.original_price_ghs > p.price_ghs ? `<span class="detail-orig">${fmt(p.original_price_ghs)}</span>` : ''}
+              ${save > 0 ? `<div class="detail-save">You save ${save}% · ${fmt(p.original_price_ghs - p.price_ghs)}</div>` : ''}
+            </div>
+            ${urgency ? `<div class="stock-urgency">Only ${p.stock} units left — order soon</div>` : ''}
+            <div class="detail-desc">${descHtml}</div>
+            <div class="detail-specs">
+              ${p.compatibility ? `<div class="spec-row"><span class="spec-label">Compatibility</span><span class="spec-val">${p.compatibility}</span></div>` : ''}
+              ${p.weight ? `<div class="spec-row"><span class="spec-label">Weight</span><span class="spec-val">${p.weight}</span></div>` : ''}
+              <div class="spec-row"><span class="spec-label">Stock</span><span class="spec-val">${p.stock > 0 ? `${p.stock} units` : 'Out of stock'}</span></div>
+            </div>
+            <div class="stock-badge ${p.stock > 0 ? 'stock-in' : 'stock-out'}">
+              ${p.stock > 0 ? 'In Stock' : 'Out of Stock'}
+            </div>
+            ${colorSelector}
+            ${p.stock > 0 ? `
+            <div class="qty-row">
+              <button class="qty-btn" onclick="chQty(-1)">−</button>
+              <span class="qty-num" id="detailQty">1</span>
+              <button class="qty-btn" onclick="chQty(1)">+</button>
+              <span style="color:var(--gray-500);font-size:0.85rem;">units</span>
+            </div>
+            <button class="add-detail-btn" onclick="addToCartQty(${p.id})">Add to Cart</button>
+            ` : `<button class="add-detail-btn" disabled style="opacity:0.4;cursor:not-allowed;">Out of Stock</button>`}
+          </div>
         </div>`;
         initReveals();
         }
@@ -3470,14 +3514,43 @@
         addToCart(id, q);
         }
 
+        function switchGalleryImg(src, thumb) {
+          const main = document.getElementById('galleryMain');
+          if (main) {
+            main.style.opacity = '0';
+            setTimeout(() => {
+              main.src = src;
+              main.style.opacity = '1';
+            }, 200);
+          }
+          document.querySelectorAll('.detail-gallery-thumb').forEach(t => t.classList.remove('active'));
+          if (thumb) thumb.classList.add('active');
+        }
+
+        function selectColor(el, color) {
+          document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
+          el.classList.add('active');
+          const nameEl = document.getElementById('selectedColorName');
+          if (nameEl) nameEl.textContent = color;
+        }
+
+        function getSelectedColor(productId) {
+          if (!productColors[productId]) return null;
+          const active = document.querySelector('.color-option.active');
+          return active ? active.dataset.color : 'Black';
+        }
+
         /* ══════════════════════════════════════════
         CART
         ══════════════════════════════════════════ */
         async function addToCart(productId, quantity = 1) {
-        const d = await api('/cart/add', { method: 'POST', body: JSON.stringify({ productId, quantity }) });
+        const color = getSelectedColor(productId);
+        const body = { productId, quantity };
+        if (color) body.color = color;
+        const d = await api('/cart/add', { method: 'POST', body: JSON.stringify(body) });
         if (d.error) return toast(d.error, 'error');
         document.getElementById('cartDot').classList.add('show');
-        toast('Added to cart', 'success');
+        toast(color ? `Added to cart (${color})` : 'Added to cart', 'success');
         }
         async function loadCart() {
         const d = await api('/cart');
@@ -3489,14 +3562,14 @@
         el.innerHTML = `
         <div class="cart-layout">
         <div class="cart-items-box">
-        ${d.cart.map(i => `
-        <div class="cart-row">
+        ${d.cart.map((i, idx) => `
+        <div class="cart-row" style="animation: cartSlideIn 0.5s var(--transition) ${idx * 0.08}s both;">
         <div class="cart-thumb">
         <img src="${getProductImg(i.product)}" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.textContent='EV'">
         </div>
         <div class="cart-info">
         <div class="cart-pname">${i.product.name}</div>
-        <div class="cart-sku">${i.product.sku || ''}</div>
+        <div class="cart-sku">${i.product.sku || ''}${i.color ? ' · ' + i.color : ''}</div>
         <div class="cart-pprice">${fmt(i.product.price_ghs * i.quantity)}</div>
         <div class="cart-qty-row">
         <button class="cqb" onclick="updCart(${i.productId},${i.quantity-1})">−</button>
@@ -3755,7 +3828,16 @@
         /* ══════════════════════════════════════════
         MODAL HELPERS
         ══════════════════════════════════════════ */
-        function openModal(id) { document.getElementById(id).classList.add('open'); }
+        function openModal(id) { 
+          const el = document.getElementById(id);
+          el.classList.add('open');
+          const modal = el.querySelector('.modal');
+          if (modal) {
+            modal.style.animation = 'none';
+            modal.offsetHeight;
+            modal.style.animation = 'modalIn 0.5s var(--transition)';
+          }
+        }
         function closeModal(id) { document.getElementById(id).classList.remove('open'); }
         document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
 
