@@ -1292,7 +1292,7 @@
                 border-color: var(--black);
             } 
                 /* ══════════════════════════════════════════
-           PRODUCT DETAIL
+           PRODUCT DETAIL & GALLERY
         ══════════════════════════════════════════ */
                 .detail-wrap {
                     max-width: 1200px;
@@ -1307,26 +1307,98 @@
                     align-items: start;
                 }
 
-                .detail-img {
-                    aspect-ratio: 4/3;
-                    background: linear-gradient(135deg, #f5f5f7, #e8e8ed);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: hidden;
+                /* ─── Gallery ─── */
+                .detail-gallery-wrap {
+                    position: relative;
                 }
 
-                    .detail-img img {
+                .detail-main-img {
+                    position: relative;
+                    aspect-ratio: 4/3;
+                    background: linear-gradient(135deg, #f5f5f7, #e8e8ed);
+                    overflow: hidden;
+                    cursor: crosshair;
+                    margin-bottom: 1rem;
+                }
+
+                    .detail-main-img img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
-                        transition: transform 0.8s ease;
+                        display: block;
+                        transition: opacity 0.3s ease;
                     }
 
-                    .detail-img:hover img {
-                        transform: scale(1.02);
+                /* Zoom flyout pane */
+                .zoom-result {
+                    position: absolute;
+                    top: 0;
+                    left: calc(100% + 1.5rem);
+                    width: 100%;
+                    height: 100%;
+                    background: #fff;
+                    border: 1px solid var(--gray-200);
+                    overflow: hidden;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.3s ease;
+                    z-index: 100;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+                }
+
+                    .zoom-result.active {
+                        opacity: 1;
                     }
 
+                    .zoom-result img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        max-width: none;
+                        width: auto;
+                        height: auto;
+                    }
+
+                /* Thumbnail strip */
+                .detail-gallery-row {
+                    display: flex;
+                    gap: 0.75rem;
+                    overflow-x: auto;
+                    padding-bottom: 0.5rem;
+                    scrollbar-width: none;
+                }
+
+                    .detail-gallery-row::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                .detail-gallery-thumb {
+                    width: 72px;
+                    height: 72px;
+                    flex-shrink: 0;
+                    border: 1px solid var(--gray-200);
+                    cursor: pointer;
+                    overflow: hidden;
+                    transition: all 0.2s ease;
+                    background: var(--gray-50);
+                }
+
+                    .detail-gallery-thumb:hover {
+                        border-color: var(--gray-400);
+                    }
+
+                    .detail-gallery-thumb.active {
+                        border-color: var(--black);
+                        box-shadow: 0 0 0 1px var(--black);
+                    }
+
+                    .detail-gallery-thumb img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                /* ─── Info ─── */
                 .detail-cat {
                     font-size: 0.7rem;
                     font-weight: 600;
@@ -1376,6 +1448,13 @@
                     color: #16a34a;
                     font-weight: 600;
                     margin-top: 0.4rem;
+                }
+
+                .stock-urgency {
+                    color: #c00;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    margin-bottom: 1rem;
                 }
 
                 .detail-desc {
@@ -1429,6 +1508,80 @@
                     color: #c00;
                 }
 
+                /* Color selector */
+                .color-selector {
+                    margin-bottom: 1.5rem;
+                }
+
+                .color-label {
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    color: var(--gray-700);
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    margin-bottom: 0.75rem;
+                }
+
+                .color-options {
+                    display: flex;
+                    gap: 0.75rem;
+                }
+
+                .color-option {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    border: 2px solid transparent;
+                    transition: all 0.2s ease;
+                    position: relative;
+                }
+
+                    .color-option:hover {
+                        transform: scale(1.1);
+                    }
+
+                    .color-option.active {
+                        border-color: var(--black);
+                        box-shadow: 0 0 0 2px white, 0 0 0 3px var(--black);
+                    }
+
+                .color-name {
+                    margin-top: 0.75rem;
+                    font-size: 0.85rem;
+                    color: var(--gray-600);
+                    font-weight: 500;
+                }
+
+                .color-option.black {
+                    background: #1a1a1a;
+                }
+
+                .color-option.grey, .color-option.gray {
+                    background: #8a8a8a;
+                }
+
+                .color-option.white {
+                    background: #f5f5f5;
+                    border: 1px solid var(--gray-300);
+                }
+
+                .color-option.red {
+                    background: #c00;
+                }
+
+                .color-option.blue {
+                    background: #2563eb;
+                }
+
+                .color-option.green {
+                    background: #16a34a;
+                }
+
+                .color-option.silver {
+                    background: #c0c0c0;
+                }
+
                 .qty-row {
                     display: flex;
                     align-items: center;
@@ -1479,6 +1632,11 @@
                         background: var(--gray-800);
                     }
 
+                    .add-detail-btn:disabled {
+                        opacity: 0.4;
+                        cursor: not-allowed;
+                    }
+
                 .back-link {
                     display: inline-flex;
                     align-items: center;
@@ -1499,6 +1657,28 @@
                     .back-link:hover {
                         color: var(--black);
                     }
+
+                @media (max-width: 1024px) {
+                    .zoom-result {
+                        display: none;
+                    }
+
+                    .detail-main-img {
+                        cursor: default;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .detail-grid {
+                        grid-template-columns: 1fr;
+                        gap: 2rem;
+                    }
+
+                    .detail-gallery-thumb {
+                        width: 64px;
+                        height: 64px;
+                    }
+                }
 
                 /* ══════════════════════════════════════════
            CART
@@ -3372,6 +3552,7 @@
         </div>`).join('');
 
         document.getElementById('homeBlogGrid').innerHTML = blogData.posts.slice(0, 3).map(blogCard).join('');
+        initZoom();
         initReveals();
         }
 
@@ -3406,6 +3587,7 @@
         } else {
         document.getElementById('shopTitle').textContent = 'EV Parts';
         }
+        initZoom();
         initReveals();
         }
         function filterCat(slug) {
@@ -3463,10 +3645,11 @@
         <button class="back-link" onclick="navigate('shop')">Back to Parts</button>
         <div class="detail-grid">
           <div class="detail-gallery-wrap">
-            <div class="detail-main-img">
+            <div class="detail-main-img" id="mainImgContainer">
               <img id="galleryMain" src="${gallery[0]}" alt="${p.name}" loading="eager"
                 onerror="this.onerror=null;this.src='${gallery[1] || gallery[0]}'">
             </div>
+            <div class="zoom-result" id="zoomResult"></div>
             <div class="detail-gallery-row">
               ${galleryThumbs}
             </div>
@@ -3502,6 +3685,7 @@
             ` : `<button class="add-detail-btn" disabled style="opacity:0.4;cursor:not-allowed;">Out of Stock</button>`}
           </div>
         </div>`;
+        initZoom();
         initReveals();
         }
         function chQty(d) {
@@ -3521,6 +3705,8 @@
             setTimeout(() => {
               main.src = src;
               main.style.opacity = '1';
+              const zoomImg = document.querySelector('#zoomResult img');
+              if (zoomImg) zoomImg.src = src;
             }, 200);
           }
           document.querySelectorAll('.detail-gallery-thumb').forEach(t => t.classList.remove('active'));
@@ -3538,6 +3724,43 @@
           if (!productColors[productId]) return null;
           const active = document.querySelector('.color-option.active');
           return active ? active.dataset.color : 'Black';
+        }
+
+        function initZoom() {
+          const container = document.getElementById('mainImgContainer');
+          const img = document.getElementById('galleryMain');
+          const result = document.getElementById('zoomResult');
+          if (!container || !img || !result) return;
+
+          const zoomScale = 2.5;
+          result.innerHTML = `<img src="${img.src}" style="max-width:none; width:${container.offsetWidth * zoomScale}px; height:auto;">`;
+          const zoomImg = result.querySelector('img');
+
+          const setupListeners = () => {
+            container.addEventListener('mouseenter', () => result.classList.add('active'));
+            container.addEventListener('mouseleave', () => result.classList.remove('active'));
+
+            container.addEventListener('mousemove', (e) => {
+              const rect = container.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+
+              const xPercent = Math.max(0, Math.min(1, x / rect.width));
+              const yPercent = Math.max(0, Math.min(1, y / rect.height));
+
+              const maxX = zoomImg.offsetWidth - result.offsetWidth;
+              const maxY = zoomImg.offsetHeight - result.offsetHeight;
+
+              zoomImg.style.left = -(xPercent * maxX) + 'px';
+              zoomImg.style.top = -(yPercent * maxY) + 'px';
+            });
+          };
+
+          if (zoomImg.complete) {
+            setupListeners();
+          } else {
+            zoomImg.onload = setupListeners;
+          }
         }
 
         /* ══════════════════════════════════════════
@@ -3590,6 +3813,7 @@
         <button onclick="navigate('shop')" style="width:100%;margin-top:0.75rem;background:none;border:none;color:var(--gray-500);cursor:pointer;font-family:inherit;font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;">Continue Shopping</button>
         </div>
         </div>`;
+        initZoom();
         initReveals();
         }
         async function updCart(id, qty) { await api('/cart/update', { method: 'PUT', body: JSON.stringify({ productId: id, quantity: qty }) }); loadCart(); updateCartDot(); }
@@ -3664,6 +3888,7 @@
         async function loadBlog() {
         const d = await api('/blog');
         document.getElementById('blogGrid').innerHTML = d.posts.map(blogCard).join('');
+        initZoom();
         initReveals();
         }
         async function viewPost(slug) {
@@ -3677,6 +3902,7 @@
         <span>${new Date(post.created_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</span>
         </div>
         <div class="post-content">${(post.content||'').split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('')}</div>`;
+        initZoom();
         initReveals();
         }
 
@@ -3710,6 +3936,7 @@
         </div>
         <div class="order-total-row">Total ${fmt(o.total_ghs)}</div>
         </div>`).join('');
+        initZoom();
         initReveals();
         }
 
@@ -3726,6 +3953,7 @@
         <div class="stat-tile reveal stagger-4"><div class="stat-label">Users</div><div class="stat-num">${d.users}</div></div>
         <div class="stat-tile reveal"><div class="stat-label">New Quotes</div><div class="stat-num">${d.quotes}</div></div>`;
         admTab('products', document.querySelector('.at'));
+        initZoom();
         initReveals();
         }
         async function admTab(tab, el) {
@@ -3782,6 +4010,7 @@
         </tbody>
         </table></div>`;
         }
+        initZoom();
         initReveals();
         }
         async function updOrderStatus(id, s) { await api(`/admin/orders/${id}/status`, { method: 'PUT', body: JSON.stringify({ status: s }) }); toast('Status updated', 'success'); }
